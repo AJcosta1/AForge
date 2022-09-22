@@ -27,7 +27,7 @@ using Color = System.Drawing.Color;
 
 #endregion
 
-namespace WpfPostItDetector
+namespace SDKSmartTrainnerAdaptor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
