@@ -2,8 +2,7 @@
 using System;
 using System.BluetoothLe;
 using System.Collections.Generic;
-using System.Linq;
-using SDKSmartTrainnerAdaptor.Ble;
+using System.Linq; 
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
@@ -11,14 +10,14 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
     {
       
         Adapter adapter;
+        BluetoothLE bluetoothLE = new BluetoothLE;
+       
 
-
+      
         public BLEMethods()
         {
 
-            adapter = BluetoothLE.Current.Adapter;
-
-
+            adapter = bluetoothLE.Adapter;
 
             adapter.DeviceConnected += (o, args) =>
             {

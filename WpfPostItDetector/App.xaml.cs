@@ -16,7 +16,7 @@ namespace SDKSmartTrainnerAdaptor
     {
         App()
         {
-            StartClass.servicesStart();
+           StartClass.servicesStart();
         }
        
     }
