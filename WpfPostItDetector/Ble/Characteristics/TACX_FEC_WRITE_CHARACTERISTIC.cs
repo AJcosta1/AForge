@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using System;
 using System.Collections.Generic;
 using SDKSmartTrainnerAdaptor.Ble;
@@ -31,7 +31,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
                      byte[] dataToWrite = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-                    var x = Variables.SessonData;
+                    var x = Start.rootClass;
                     var valueToWite = x.Slope;
 
 

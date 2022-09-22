@@ -3,11 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SDKSmartTrainnerAdaptor"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:SessonData="clr-namespace:SDKSmartTrainnerAdaptor"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         Title="MainWindow"
         Width="1382"
         Height="524"
         mc:Ignorable="d">
+ 
     <Grid Margin="10,16,10,-6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="451*" />
@@ -91,11 +93,11 @@
         <ToggleButton Grid.Column="1"
             Width="96"
             Height="26"
-            Margin="27,182,0,0"
+            Margin="29,414,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Default"
-            IsChecked="{Binding PickingColor}" Checked="SetDefaults" />
+            Content="Calibrate"
+            IsChecked="{Binding Calibrate}" Checked="Calibrate" />
 
 
 
@@ -112,5 +114,30 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <ToggleButton Grid.Column="1"
+            Width="96"
+            Height="26"
+            Margin="27,213,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Default Color"
+            IsChecked="{Binding PickingColor}" Checked="SetDefaults" />
+        <TextBlock Grid.Column="1"
+            Width="96"
+            Height="19"
+            Margin="29,390,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="Pos:"
+            TextWrapping="Wrap"><Run Text="{Binding PosX}" /></TextBlock>
+        
+        <TextBlock Grid.Column="1"
+            Width="96"
+            Height="19"
+            Margin="146,186,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="HR:"
+            TextWrapping="Wrap"><Run Text="{Binding HeartRateBPM}"/></TextBlock>
     </Grid>
 </Window>

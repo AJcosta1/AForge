@@ -113,7 +113,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BitmapHelpers.cs" />
+    <Compile Include="MotionDetector\BitmapHelpers.cs" />
     <Compile Include="Ble\Actions\0Scan.cs" />
     <Compile Include="Ble\Actions\1BLEUpdateConnections.cs" />
     <Compile Include="Ble\Actions\2Connect.cs" />
@@ -151,7 +151,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MotionDetector\Start.cs" />
+    <Compile Include="MotionDetector\ImageMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

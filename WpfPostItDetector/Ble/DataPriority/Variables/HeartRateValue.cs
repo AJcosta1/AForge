@@ -1,5 +1,4 @@
-﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary; 
 
 namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 {
@@ -18,7 +17,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
             //variable
             var temp1 = Read(output, characteristic, _variableToRead);
 
-            Variables.SessonData.HeartRateBPM = temp1;
+            Start.rootClass.HeartRateBPM = temp1;
 
            
 

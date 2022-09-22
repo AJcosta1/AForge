@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using SDKSmartTrainnerAdaptor.Ble;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Characteristics

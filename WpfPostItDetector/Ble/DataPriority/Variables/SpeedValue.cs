@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using System;
 
 namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
@@ -31,7 +31,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
             temp2= Math.Max(temp2, temp3);
 
 
-            Variables.SessonData.Speed_ms = Math.Max(temp1, temp2);
+            Start.rootClass.Speed_ms = Math.Max(temp1, temp2);
  
 
         }

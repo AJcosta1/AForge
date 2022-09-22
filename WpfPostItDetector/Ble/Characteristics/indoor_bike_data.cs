@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
                             double speed = value/360; //to m/s
                           
-                            var x = Variables.SessonData;
+                            var x = Start.rootClass;
 
                             double wheelPerimeter = x.WheelPerimeter;                
 

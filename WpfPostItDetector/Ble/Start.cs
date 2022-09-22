@@ -12,9 +12,11 @@ namespace SDKSmartTrainnerAdaptor.Ble
     public static class Start
     {
         public static BLEMethods ble = new BLEMethods();
-         
-        public static void StartServices()
+        public static MainWindow rootClass;
+
+        public static void StartServices(MainWindow _rootClass)
         {
+            rootClass = _rootClass;
 
             Configuration.BLEConfigurationInitialization.StartBLEConfigurationInitialization();
      

@@ -1,4 +1,4 @@
-﻿using SDKSmartTrainnerAdaptor.GlobalLibs;
+﻿using SDKSmartTrainnerAdaptor;
 using System;
 using System.BluetoothLe;
 using System.Linq;

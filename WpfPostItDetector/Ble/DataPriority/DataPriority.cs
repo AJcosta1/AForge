@@ -1,4 +1,4 @@
-﻿using SDKSmartTrainnerAdaptor.GlobalLibs;
+﻿using SDKSmartTrainnerAdaptor;
 using System;
 using System.Linq;
 using SDKSmartTrainnerAdaptor.Ble;
@@ -8,7 +8,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
     static partial class DataPriority
     {
 
-        public static SessonData x = Variables.SessonData;
+        public static MainWindow x;
 
         public enum variableToRead
             {
@@ -21,6 +21,8 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 
         public static void CheckData()
         {
+            x = Start.rootClass;
+
             SpeedValue();
             CadenceValue();
             PowerValue();

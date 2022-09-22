@@ -1,28 +1,15 @@
-﻿using System;
+﻿using AForge.Video.DirectShow;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 
-namespace SDKSmartTrainnerAdaptor.GlobalLibs
+namespace SDKSmartTrainnerAdaptor
 {
-    public static class Variables
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
- 
-        public static SessonData sessonData { get; set; }
-
-        public static SessonData SessonData
-        {
-
-            get  { if(sessonData==null)
-                    sessonData = new SessonData();
-                return sessonData; }  
-        } 
-
-    }
-  
-
-    public class SessonData : INotifyPropertyChanged
-    {
- 
+        #region Aplication
         public double Slope
         {
             get { return GetPropertyValue<double>("Slope"); }
@@ -122,20 +109,9 @@ namespace SDKSmartTrainnerAdaptor.GlobalLibs
 
         public double WheelPerimeter { get; set; } = 2175;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
 
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged == null)
-                return;
-
-
-
-
-            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+ 
 
         public T GetPropertyValue<T>(string property, object def = null)
         {
@@ -147,6 +123,154 @@ namespace SDKSmartTrainnerAdaptor.GlobalLibs
             return default(T);
         }
 
+        #region Motion Detector Related
+
+
+
+        public ObservableCollection<FilterInfo> VideoDevices { get; set; }
+
+        public FilterInfo CurrentDevice
+        {
+            get { return _currentDevice; }
+            set { _currentDevice = value; this.OnPropertyChanged("CurrentDevice"); }
+        }
+        private FilterInfo _currentDevice;
+
+        /// <summary>
+        /// Displays the original image taken from the camera
+        /// </summary>
+        public bool Original
+        {
+            get { return _original; }
+            set { _original = value; this.OnPropertyChanged("Original"); }
+        }
+        private bool _original;
+
+        /// <summary>
+        /// Displays the image taken from the camera with a grayscale filter applied
+        /// </summary>
+        public bool Grayscaled
+        {
+            get { return _grayscale; }
+            set { _grayscale = value; this.OnPropertyChanged("Grayscaled"); }
+        }
+        private bool _grayscale;
+
+        /// <summary>
+        /// Displays the image taken from the camera with a threshold filter applied
+        /// </summary>
+        public bool Thresholded
+        {
+            get { return _thresholded; }
+            set { _thresholded = value; this.OnPropertyChanged("Thresholded"); }
+        }
+        private bool _thresholded;
+
+        /// <summary>
+        /// Threshold of the thresholding filter
+        /// </summary>
+        public int Threshold
+        {
+            get { return _threshold; }
+            set { _threshold = value; this.OnPropertyChanged("Threshold"); this.OnPropertyChanged("RGB"); }
+        }
+        private int _threshold;
+
+        /// <summary>
+        /// Color picker: red channel
+        /// </summary>
+        public int Red
+        {
+            get { return _red; }
+            set { _red = value; this.OnPropertyChanged("Red"); this.OnPropertyChanged("RGB"); }
+        }
+        private int _red;
+
+        /// <summary>
+        /// Color picker: blue channel
+        /// </summary>
+        public int Blue
+        {
+            get { return _blue; }
+            set { _blue = value; this.OnPropertyChanged("Blue"); this.OnPropertyChanged("RGB"); }
+        }
+        private int _blue;
+
+        /// <summary>
+        /// Color picker: green channel
+        /// </summary>
+        public int Green
+        {
+            get { return _green; }
+            set { _green = value; this.OnPropertyChanged("Green"); }
+        }
+        private int _green;
+
+        /// <summary>
+        /// True if the user hit the color picking button and is choosing a color
+        /// </summary>
+        public bool PickingColor
+        {
+            get { return _pickingColor; }
+            set { _pickingColor = value; this.OnPropertyChanged("PickingColor"); }
+        }
+        private bool _pickingColor;
+
+        /// <summary>
+        /// Displays the image with a Euclidean color filter applied
+        /// </summary>
+        public bool ColorFiltered
+        {
+            get { return _colorFiltered; }
+            set { _colorFiltered = value; this.OnPropertyChanged("ColorFiltered"); }
+        }
+        private bool _colorFiltered;
+
+        /// <summary>
+        /// Displays the image inverted color filter applied
+        /// </summary>
+        public bool Inverted
+        {
+            get { return _inverted; }
+            set { _inverted = value; this.OnPropertyChanged("Inverted"); }
+        }
+        private bool _inverted;
+
+        /// <summary>
+        /// Radius of the euclidean color filter
+        /// </summary>
+        public short Radius
+        {
+            get { return _radius; }
+            set { _radius = value; this.OnPropertyChanged("Radius"); }
+        }
+        private short _radius;
+
+        /// <summary>
+        /// RGB
+        /// </summary>
+        public String RGB
+        {
+            set { }
+            get { return Red + "," + Green + "," + Blue; }
+
+        }
+
+
+        /// <summary>
+        /// Position
+        /// </summary>
+        public double PosX
+        {
+            get { return _PosX - _PosX0; }
+            set { _PosX = value; this.OnPropertyChanged("PosX"); }
+        }
+        private double _PosX;
+
+        private double _PosX0;
+        #endregion
+
+        #region Notifiers
         public void SetPropertyValue(string property, object value)
         {
             if (Data.ContainsKey(property))
@@ -173,13 +297,25 @@ namespace SDKSmartTrainnerAdaptor.GlobalLibs
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(propertyName);
+                handler(this, e);
+            }
+        }
+
         public Dictionary<string, Object> Data = new Dictionary<string, Object>();
         public Dictionary<string, System.Reflection.PropertyInfo> DataProperty = new Dictionary<string, System.Reflection.PropertyInfo>();
         public Dictionary<string, string> DontExist = new Dictionary<string, string>();
 
-
+        #endregion
     }
 
- 
- 
+
+
 }

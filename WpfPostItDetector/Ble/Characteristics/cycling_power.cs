@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using System;
 using System.Collections;
 using System.Collections.Generic;

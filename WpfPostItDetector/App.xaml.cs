@@ -1,4 +1,4 @@
-﻿using SDKSmartTrainnerAdaptor.GlobalLibs;
+﻿using SDKSmartTrainnerAdaptor;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,7 +16,7 @@ namespace SDKSmartTrainnerAdaptor
     {
         App()
         {
-           StartClass.servicesStart();
+           
         }
        
     }

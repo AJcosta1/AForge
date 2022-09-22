@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 using System;
 
 namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
@@ -27,7 +27,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
             var temp2 = Read(output, characteristic, _variableToRead);
 
           
-                Variables.SessonData.Cadence = Math.Max(temp1, temp2);
+                Start.rootClass.Cadence = Math.Max(temp1, temp2);
 
            
 

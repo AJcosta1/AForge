@@ -1,5 +1,5 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor.GlobalLibs;
+using SDKSmartTrainnerAdaptor;
 
 namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 {
@@ -14,7 +14,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
             variableToRead _variableToRead = variableToRead.ReadTratedValue_1;
 
             //variable 
-            Variables.SessonData.Power = Read(output, characteristic, _variableToRead);
+            Start.rootClass.Power = Read(output, characteristic, _variableToRead);
 
             
 
