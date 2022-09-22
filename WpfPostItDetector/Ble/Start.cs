@@ -1,6 +1,7 @@
 ﻿using SDKSmartTrainnerAdaptor.Ble.Actions;
 using SDKSmartTrainnerAdaptor.Ble.Characteristics;
 using SDKSmartTrainnerAdaptor.Ble.Configuration;
+using SDKSmartTrainnerAdaptor.Ble.DataPriority;
 using System;
 using System.BluetoothLe;
 using System.Windows.Threading;
@@ -17,7 +18,7 @@ namespace SDKSmartTrainnerAdaptor.Ble
 
             Configuration.BLEConfigurationInitialization.StartBLEConfigurationInitialization();
      
-            startScan();
+            StartScan();
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += TimerTick1;
@@ -48,10 +49,11 @@ namespace SDKSmartTrainnerAdaptor.Ble
         {
  
             CharacteristicsRead.InterpretateReadDataFromBLE();
+            SDKSmartTrainnerAdaptor.Ble.DataPriority.DataPriority.CheckData(); 
 
         }
 
-        public static void startScan()
+        public static void StartScan()
         {
 
             ble.scanNewDevices();

@@ -19,10 +19,8 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 
         }
 
-
         public static void CheckData()
         {
-
             SpeedValue();
             CadenceValue();
             PowerValue();

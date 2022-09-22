@@ -81,7 +81,7 @@ namespace SDKSmartTrainnerAdaptor
         public int Threshold
         {
             get { return _threshold; }
-            set { _threshold = value; this.OnPropertyChanged("Threshold"); }
+            set { _threshold = value; this.OnPropertyChanged("Threshold"); this.OnPropertyChanged("RGB"); }
         }
         private int _threshold;
 
@@ -91,7 +91,7 @@ namespace SDKSmartTrainnerAdaptor
         public int Red
         {
             get { return _red; }
-            set { _red = value; this.OnPropertyChanged("Red"); }
+            set { _red = value; this.OnPropertyChanged("Red"); this.OnPropertyChanged("RGB"); }
         }
         private int _red;
 
@@ -101,7 +101,7 @@ namespace SDKSmartTrainnerAdaptor
         public int Blue
         {
             get { return _blue; }
-            set { _blue = value; this.OnPropertyChanged("Blue"); }
+            set { _blue = value; this.OnPropertyChanged("Blue"); this.OnPropertyChanged("RGB"); }
         }
         private int _blue;
 
@@ -155,6 +155,17 @@ namespace SDKSmartTrainnerAdaptor
         }
         private short _radius;
 
+        /// <summary>
+        /// RGB
+        /// </summary>
+        public String RGB
+        {
+            set {  }
+            get { return Red+","+Green+","+Blue; } 
+
+        }
+ 
+
 
         #endregion
 
@@ -175,7 +186,7 @@ namespace SDKSmartTrainnerAdaptor
             this.DataContext = this;
             GetVideoDevices();
             Threshold = 127;
-            Radius = 60;
+            Radius = 30;
             Original = true;
             this.Closing += MainWindow_Closing;
         }
@@ -434,10 +445,16 @@ namespace SDKSmartTrainnerAdaptor
             }
         }
 
-        #endregion
-        
 
-        
+
+        #endregion
+
+        private void SetDefaults(object sender, RoutedEventArgs e)
+        {
+            Red = 255;
+            Green = 255;
+            Blue = 255;
+        }
     }
 
     

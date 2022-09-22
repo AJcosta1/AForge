@@ -7,17 +7,13 @@ using System.Linq;
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
-    {
-      
+    {  
         Adapter adapter;
-        BluetoothLE bluetoothLE = new BluetoothLE;
-       
-
-      
+  
         public BLEMethods()
         {
 
-            adapter = bluetoothLE.Adapter;
+            adapter = System.BluetoothLe.BluetoothLE.Current.Adapter;
 
             adapter.DeviceConnected += (o, args) =>
             {
