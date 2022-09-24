@@ -79,7 +79,9 @@ namespace SDKSmartTrainnerAdaptor
                     else // original
                     {
                         var corners = FindCorners(bitmap);
-                        PosX = corners.Count() > 0 ? corners.Select(c => c.X).Average() : PosX;
+                        _PosX = corners.Count() > 0 ? corners.Select(c => c.X).Average() : _PosX;
+             
+
                         if (corners.Any())
                         {
                             PaintCorners(corners, bitmap);

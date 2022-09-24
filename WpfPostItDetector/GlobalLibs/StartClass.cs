@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDKSmartTrainnerAdaptor.GamePadEmulator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,10 @@ namespace SDKSmartTrainnerAdaptor
             /// Metoths to start when app starts
             /// </summary>
 
-            Ble.Start.StartServices(this); 
+            Ble.Start.StartServices(this);
+
+            GamePad.Start(this);
+
 
         }
     }

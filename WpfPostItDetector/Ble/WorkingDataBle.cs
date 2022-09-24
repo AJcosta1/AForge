@@ -58,7 +58,7 @@ namespace SDKSmartTrainnerAdaptor.Ble
         public void UpdateListDeviceConnected()
         {
 
-            foreach (var d in DevicesDetected.Distinct())
+            foreach (var d in DevicesDetected.Distinct().ToList())
             {
                 d.Name = d.Device.Name;
                 d.State = d.Device.State.ToString();

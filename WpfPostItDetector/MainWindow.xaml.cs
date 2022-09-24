@@ -58,6 +58,7 @@ namespace SDKSmartTrainnerAdaptor
             Radius = 30;
             Original = true;
             this.Closing += MainWindow_Closing;
+            SetDefaults(); 
         }
 
         #endregion
@@ -114,12 +115,22 @@ namespace SDKSmartTrainnerAdaptor
 
         private void SetDefaults(object sender, RoutedEventArgs e)
         {
+            SetDefaults();
+        }
+
+        private void SetDefaults()
+        {
             Red = 255;
             Green = 255;
             Blue = 255;
         }
 
         private void Calibrate(object sender, RoutedEventArgs e)
+        {
+            Calibrate();
+
+        }
+        private void Calibrate()
         {
             _PosX0 = _PosX;
 

@@ -1,4 +1,5 @@
 ﻿using AForge.Video.DirectShow;
+using SDKSmartTrainnerAdaptor.GamePadEmulator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -263,11 +264,24 @@ namespace SDKSmartTrainnerAdaptor
         public double PosX
         {
             get { return _PosX - _PosX0; }
-            set { _PosX = value; this.OnPropertyChanged("PosX"); }
-        }
-        private double _PosX;
+            set { }
 
-        private double _PosX0;
+}
+        public double _PosX
+        {
+
+            get { return GetPropertyValue<double>("_PosX"); }
+            set { SetPropertyValue("_PosX", value);
+                SetPropertyValue("PosX", value);
+                _PosXMin = _PosXMin > _PosX - _PosX0 ? _PosX - _PosX0 : _PosXMin;
+            }
+      
+   
+}
+
+        public double _PosX0;
+
+        private double _PosXMin=100000;
         #endregion
 
         #region Notifiers
@@ -275,15 +289,11 @@ namespace SDKSmartTrainnerAdaptor
         {
             if (Data.ContainsKey(property))
             {
-
-                OnPropertyChanged(property);
-                NotifyElementsUI(property);
+                    OnPropertyChanged(property);
+                    NotifyElementsUI(property);
             }
 
-
-
-            Data[property] = value;
-
+            Data[property] = value;     
         }
 
         public void NotifyElementsUI(string property)

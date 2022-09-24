@@ -31,9 +31,6 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                 WorkingDataBLE.Current.SessonData.UpdateListDeviceConnected();
             };
 
-
-
-
         }
 
         public async void scanNewDevices()

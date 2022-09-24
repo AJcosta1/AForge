@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\WpfPostItDetector"
   ],
-  "SelectedNode": "\\LICENSE",
+  "SelectedNode": "\\WpfPostItDetector\\MainWindow.xaml",
   "PreviewInSolutionExplorer": false
 }
