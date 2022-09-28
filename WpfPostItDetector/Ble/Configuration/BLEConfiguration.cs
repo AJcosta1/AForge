@@ -13,7 +13,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Configuration
         /// <summary>
         /// BLE Device scan time in millisencons
         /// </summary>
-        public const int scanNewDevicesTime = 5000;
+        public const int scanNewDevicesTime = 10000;
 
         /// <summary>
         /// BLE Device scan time in millisencons

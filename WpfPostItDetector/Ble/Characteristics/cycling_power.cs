@@ -4,15 +4,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SDKSmartTrainnerAdaptor.Ble;
+using System.Linq;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 {
     public partial class CharacteristicsRead
     {
 
-        public static void cycling_power(Dictionary<string, byte[]> WorkingDataDictonaryByte_temp)
+        public static void cycling_power()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataDictonaryByte_temp)
+            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.CyclingPowerMeasurement;
 

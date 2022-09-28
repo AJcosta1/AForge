@@ -12,73 +12,7 @@
         mc:Ignorable="d">
 
     <Grid Margin="10,16,10,-6">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="451*" />
-            <ColumnDefinition Width="601*"/>
-            <ColumnDefinition Width="311*" />
-        </Grid.ColumnDefinitions>
-        <Image x:Name="videoPlayer"
-               Margin="6,0,582,203"
-               MouseEnter="videoPlayer_MouseEnter"
-               MouseLeave="videoPlayer_MouseLeave"
-               PreviewMouseLeftButtonDown="videoPlayer_PreviewMouseLeftButtonDown" Grid.ColumnSpan="2" />
-
-        <ComboBox x:Name="comboBox"
-                  Width="167"
-                  Height="21"
-                  Margin="10,0,0,25"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Bottom"
-                  DisplayMemberPath="Name"
-                  ItemsSource="{Binding VideoDevices}"
-                  SelectedItem="{Binding CurrentDevice}" />
-        <Label Width="167"
-               Height="24"
-               Margin="10,0,0,46"
-               HorizontalAlignment="Left"
-               VerticalAlignment="Bottom"
-               Content="Select video source" />
-        <Button Width="67"
-                Height="21"
-                Margin="213,0,0,25"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Click="btnStart_Click"
-                Content="Start" />
-        <Button Width="67"
-                Height="21"
-                Margin="296,0,0,25"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Click="btnStop_Click"
-                Content="Stop" />
-        <ToggleButton Grid.Column="1"
-                      Width="96"
-                      Height="26"
-                      Margin="29,102,0,0"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Content="Color picker"
-                      IsChecked="{Binding PickingColor}" />
-        <TextBlock Grid.Column="1"
-                   Width="96"
-                   Height="19"
-                   Margin="29,133,0,0"
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Top"
-                   Text="RGB:"
-                   TextWrapping="Wrap">
-            <Run Text="{Binding RGB}" />
-        </TextBlock>
-        <CheckBox x:Name="cbColorFiltering"
-                  Grid.Column="1"
-                  Width="98"
-                  Height="21"
-                  Margin="27,44,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top"
-                  Content="Color filtering"
-                  IsChecked="{Binding ColorFiltered}" />
+         
         <Slider x:Name="slider_Copy"
                 Grid.Column="1"
                 Width="98"
@@ -100,21 +34,6 @@
             Content="Calibrate"
             IsChecked="{Binding Calibrate}" Checked="Calibrate" />
 
-
-
-
-        <ListView Height="123" HorizontalAlignment="Left" Margin="146,19,0,0" Name="listViewDocuments" VerticalAlignment="Top" Width="347" DataContext="{Binding DocumentList}" Grid.Column="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="160" Header="Description" DisplayMemberBinding="{Binding Description}"/>
-                    <GridViewColumn Width="160" Header="Date Filed" DisplayMemberBinding="{Binding DateFiled}"/>
-                    <GridViewColumn Width="160" Header="Filed By" DisplayMemberBinding="{Binding UserFiledName}"/>
-                    <GridViewColumn Width="150" Header="Page" DisplayMemberBinding="{Binding Pages}"/>
-                    <GridViewColumn Width="150" Header="Notes" DisplayMemberBinding="{Binding Notes}"/>
-                    <GridViewColumn Width="Auto" Header="" />
-                </GridView>
-            </ListView.View>
-        </ListView>
         <ToggleButton Grid.Column="1"
             Width="96"
             Height="26"
@@ -147,6 +66,6 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="Pos:"
-            TextWrapping="Wrap"><Run Text="{Binding _PosX}" /></TextBlock>
+            TextWrapping="Wrap"><Run Text="{Binding _PosXAVG}" /></TextBlock>
     </Grid>
 </Window>

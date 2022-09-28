@@ -13,20 +13,12 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
         public static void InterpretateReadDataFromBLE()
         {
 
-           
-                Dictionary<string, byte[]> WorkingDataDictonaryByte_temp = new Dictionary<string, byte[]>();
-
-                lock (WorkingDataBLE.WorkingDataDictonaryByte)
-                {
-                    WorkingDataDictonaryByte_temp = WorkingDataBLE.WorkingDataDictonaryByte.ToDictionary(x => x.Key, x => x.Value);
-                }
-
-
-                heart_rate_measurement(WorkingDataDictonaryByte_temp); 
-                TACX_FEC_WRITE_CHARACTERISTIC(WorkingDataDictonaryByte_temp);
-                csc_measurement(WorkingDataDictonaryByte_temp);
-                indoor_bike_data(WorkingDataDictonaryByte_temp);
-                cycling_power(WorkingDataDictonaryByte_temp);
+          
+                heart_rate_measurement(); 
+                TACX_FEC_WRITE_CHARACTERISTIC();
+                csc_measurement();
+                indoor_bike_data();
+                cycling_power();
 
             }
 

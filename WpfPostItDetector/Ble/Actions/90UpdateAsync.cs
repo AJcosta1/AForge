@@ -10,25 +10,33 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
         public async Task updateAsync()
         {
-            foreach (var device in WorkingDataBLE.Current.SessonData.DevicesDetected)
+            foreach (var device in adapter.ConnectedDevices.ToList())
             {
-                if (device.Device.State == DeviceState.Connected)
-                    foreach (var characteristic in device.Characteristics.Where(x => !x.isUpdating).ToList())
+                var characteristics = WorkingDataBLE.Current.SessonData.DevicesDetected.First(d => d.Device.Id == device.Id).Characteristics;
+
+                if (characteristics.Count == 0)
+                    ScanServicesCharacteristics(device);
+
+
+                if (device.State == DeviceState.Connected)
+                {
+
+                    var results = WorkingDataBLE.ListaConfiguracaoDispositivos.Select(x => x.characteristic).Distinct();
+
+                    foreach (var characteristic in characteristics.Where(x => !x.isUpdating && results.Contains(x.Characteristic.Id.ToString().ToUpper())).ToList())
                     {
                         var result = WorkingDataBLE.ListaConfiguracaoDispositivos.Where(x => x.characteristic.ToUpper() == characteristic.Characteristic.Id.ToString().ToUpper());
 
                         if (result.Count() > 0)
                         {
-
                             if (characteristic.Characteristic.CanUpdate)
                             {
-                                Listen(characteristic.Characteristic);
+                                await ListenAsync(characteristic.Characteristic);
                                 characteristic.isUpdating = true;
                             }
 
                             else
                             {
-
                                 if (characteristic.Characteristic.CanRead)
                                     await GetData(characteristic.Characteristic);
 
@@ -40,6 +48,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
                         }
                     }
+                }
 
             }
 

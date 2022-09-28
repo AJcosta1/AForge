@@ -116,14 +116,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Ble\Actions\Events.cs" />
     <Compile Include="Telemetry\Class1.cs" />
-    <Compile Include="GamePadEmulator\GamePad.cs" />
     <Compile Include="MotionDetector\BitmapHelpers.cs" />
     <Compile Include="Ble\Actions\0Scan.cs" />
-    <Compile Include="Ble\Actions\1BLEUpdateConnections.cs" />
     <Compile Include="Ble\Actions\2Connect.cs" />
     <Compile Include="Ble\Actions\3ScanServicesCharacteristics.cs" />
-    <Compile Include="Ble\Actions\4Disconnect.cs" />
     <Compile Include="Ble\Actions\90UpdateAsync.cs" />
     <Compile Include="Ble\Actions\91GetData.cs" />
     <Compile Include="Ble\Actions\92Listen.cs" />

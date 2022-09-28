@@ -1,9 +1,9 @@
 ﻿using AForge.Video.DirectShow;
-using SDKSmartTrainnerAdaptor.GamePadEmulator;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 
 namespace SDKSmartTrainnerAdaptor
@@ -27,7 +27,7 @@ namespace SDKSmartTrainnerAdaptor
             get { return GetPropertyValue<double>("Power"); }
             set
             {
-                SetPropertyValue("Power", value);   
+                SetPropertyValue("Power", value);
             }
         }
         public String UIPower
@@ -43,7 +43,7 @@ namespace SDKSmartTrainnerAdaptor
 
         public String UIHeartRateBPM
         {
-            get { return ("HR= "+ HeartRateBPM); } 
+            get { return ("HR= " + HeartRateBPM); }
         }
 
         public double Speed_ms
@@ -54,8 +54,8 @@ namespace SDKSmartTrainnerAdaptor
 
         public double Speed
         {
-            get { return GetPropertyValue<double>("Speed_ms")*3.6; }
-           
+            get { return GetPropertyValue<double>("Speed_ms") * 3.6; }
+
         }
 
         public String UISpeed
@@ -110,9 +110,10 @@ namespace SDKSmartTrainnerAdaptor
 
         public double WheelPerimeter { get; set; } = 2175;
 
+
         #endregion
 
- 
+
 
         public T GetPropertyValue<T>(string property, object def = null)
         {
@@ -266,22 +267,33 @@ namespace SDKSmartTrainnerAdaptor
             get { return _PosX - _PosX0; }
             set { }
 
-}
+        }
         public double _PosX
         {
 
             get { return GetPropertyValue<double>("_PosX"); }
             set { SetPropertyValue("_PosX", value);
                 SetPropertyValue("PosX", value);
-                _PosXMin = _PosXMin > _PosX - _PosX0 ? _PosX - _PosX0 : _PosXMin;
+                _PosXMin = _PosXMin > _PosX ? _PosX : _PosXMin;
+                _PosXMax =  _PosX > _PosXMax?  _PosX : _PosXMax;
+                //SetPropertyValue("_PosXAVG", GetAvg("_PosXAVG", value));
+                //if (Math.Abs(_PosXAVG - value) < 15)
+                //   Calibrate();
+                _PosX0= (_PosXMax- _PosXMin)/ 2;
             }
-      
-   
-}
+
+        }
+
+        public double _PosXAVG
+        {
+            get { return GetPropertyValue<double>("_PosXAVG"); }
+            set { }
+        }
 
         public double _PosX0;
 
-        private double _PosXMin=100000;
+        private double _PosXMin = 100000;
+        private double _PosXMax = -100000;
         #endregion
 
         #region Notifiers
@@ -289,11 +301,11 @@ namespace SDKSmartTrainnerAdaptor
         {
             if (Data.ContainsKey(property))
             {
-                    OnPropertyChanged(property);
-                    NotifyElementsUI(property);
+                OnPropertyChanged(property);
+                NotifyElementsUI(property);
             }
 
-            Data[property] = value;     
+            Data[property] = value;
         }
 
         public void NotifyElementsUI(string property)
@@ -305,6 +317,8 @@ namespace SDKSmartTrainnerAdaptor
 
                 property = "UI" + property;
             }
+
+            var TimeWatch = Convert.ToDouble((DateTime.Now).Ticks);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -317,12 +331,49 @@ namespace SDKSmartTrainnerAdaptor
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
+
         }
 
         public Dictionary<string, Object> Data = new Dictionary<string, Object>();
         public Dictionary<string, System.Reflection.PropertyInfo> DataProperty = new Dictionary<string, System.Reflection.PropertyInfo>();
         public Dictionary<string, string> DontExist = new Dictionary<string, string>();
 
+        #endregion
+
+        #region Maths Avg
+
+        public List<Logs> Log = new List<Logs>();
+
+        public class Logs
+        {
+
+            public string tag;
+            public double Value;
+            public TimeSpan Time = TimeSpan.FromTicks((long)Convert.ToDouble((DateTime.Now).Ticks));
+        }
+
+        protected double GetAvg(string propertyName, double value, double time = 10)
+        {
+            double target = value;          
+
+            TimeSpan Time = TimeSpan.FromTicks((long)Convert.ToDouble((DateTime.Now).Ticks));
+
+            Log.Add(new Logs() { tag = propertyName, Value = value, Time = Time });
+
+            var results = Log.Where(z => z.tag == nameof(propertyName));
+          
+            if (results.Count() > 0)
+                    target= results.Where(y => (Time - y.Time).TotalSeconds <= time).Average(z => z.Value);
+
+
+            //Log.RemoveAll(y => (Time - y.Time).TotalSeconds > 30);
+
+
+            return target;
+
+        }
+
+ 
         #endregion
     }
 

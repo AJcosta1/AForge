@@ -12,6 +12,7 @@ namespace SDKSmartTrainnerAdaptor.Ble
 {
     public partial class SessonDataBLE : INotifyPropertyChanged
     {
+        public ObservableCollection<DevicesDetected> devicesConected = new ObservableCollection<DevicesDetected>();
 
         public ObservableCollection<DevicesDetected> devicesDetected = new ObservableCollection<DevicesDetected>();
 
@@ -55,8 +56,9 @@ namespace SDKSmartTrainnerAdaptor.Ble
             }
         }
 
-        public void UpdateListDeviceConnected()
+        public void UpdateListDeviceDetected()
         {
+            
 
             foreach (var d in DevicesDetected.Distinct().ToList())
             {
@@ -64,12 +66,7 @@ namespace SDKSmartTrainnerAdaptor.Ble
                 d.State = d.Device.State.ToString();
 
             }
-
-
         }
-
-
-
     }
 
     public class DevicesDetected : INotifyPropertyChanged
@@ -77,6 +74,8 @@ namespace SDKSmartTrainnerAdaptor.Ble
         public Device Device;
         public List<DevicesCharacteristics> Characteristics { get; set; } = new List<DevicesCharacteristics>();
         public List<Service> Services { get; set; } = new List<Service>();
+
+        public bool isCompatible = true;
 
         public string name { get; set; }
 

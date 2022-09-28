@@ -1,5 +1,7 @@
 ﻿using System;
 using System.BluetoothLe;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using SDKSmartTrainnerAdaptor.Ble;
 
@@ -8,60 +10,61 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
     public partial class BLEMethods
     {
 
-        public async Task<Device> connectDevice(DevicesDetected _device)
+        public async Task connectDevices()
         {
-
-            try
+            foreach (var device in adapter.DiscoveredDevices.Distinct().ToList())
             {
-                if (!isScanning())
+                var _device = WorkingDataBLE.Current.SessonData.DevicesDetected.First(d => d.Device.Id == device.Id);
+
+                if (isCompatible(device) && _device.isCompatible && device.State!=DeviceState.Connected)
                 {
-
-                    if (WorkingDataBLE.WorkingDataDictonaryLastUpdate.ContainsKey(_device.Device))
+                    if (adapter.ConnectedDevices.FirstOrDefault(x=>x.Id==device.Id) == null )
                     {
-                        TimeSpan ts = DateTime.Now - WorkingDataBLE.WorkingDataDictonaryLastUpdate[_device.Device];
 
-                        if (Convert.ToInt32(ts.TotalSeconds) > 10)
-                        {
-                            WorkingDataBLE.WorkingDataDictonaryLastUpdate[_device.Device] = DateTime.Now;
+                        if (!WorkingDataBLE.WorkingDataDictonaryLastUpdate.ContainsKey(device))
+                            WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
 
 
+                        TimeSpan ts = DateTime.Now - WorkingDataBLE.WorkingDataDictonaryLastUpdate[device];
 
-                            await adapter.ConnectToDeviceAsync(_device.Device);
+                        if (Convert.ToInt32(ts.TotalSeconds) > 5)
+                            {
+                            try {
 
+                                    adapter.ConnectToDeviceAsync(device, new ConnectParameters(autoConnect: true, forceBleTransport: true));
 
+                                    WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
 
+                                }
+                                catch (DeviceConnectionException e)
+                                {
+                                }
+                            
                         }
                     }
-                    else
-                    {
-
-                        WorkingDataBLE.WorkingDataDictonaryLastUpdate[_device.Device] = DateTime.Now;
-
-                        await adapter.ConnectToDeviceAsync(_device.Device);
-                    }
-
-                    await ScanServicesCharacteristics(_device);
-
-
                 }
-
             }
-            catch (DeviceConnectionException e)
-            {
-                /* // ... could not connect to device
-                 foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.ListaConfiguracaoDispositivos.Where(p => p.type == deviceID))
-                 {
-                     name = ListaConfiguracaoDispositivos.nameFromSupplier;
-                     if (name == ListaConfiguracaoDispositivos.type) ;
-                 }
-
-                 WorkingDataEvent.ListaEventosGerados.Add(new Abstractions.WorkingData.Event.Part() { description = FormVariableNames.EventCloudNotConnectToDeviceBLE + " " + name, data = DateTime.UtcNow.ToString("HH:mm:ss", CultureInfo.InvariantCulture) });
-             */
-            }
-            return _device.Device;
         }
 
-      
+        public bool isCompatible(Device device)
+        {
+            var characteristics = WorkingDataBLE.Current.SessonData.DevicesDetected.First(d => d.Device.Id == device.Id).Characteristics;
 
+            if (characteristics.Count == 0)
+            {
+                return true;
+            }
+
+            var results = WorkingDataBLE.ListaConfiguracaoDispositivos.Select(x => x.characteristic.ToUpper()).Distinct();
+
+            foreach (var _characteristic in characteristics.ToList())
+            {
+                if (results.Contains(_characteristic.Characteristic.Id.ToString().ToUpper()))
+                    return true;
+
+            }
+
+            return false;
+        }
     }
 }

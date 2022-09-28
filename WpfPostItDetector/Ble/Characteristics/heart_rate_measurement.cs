@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
 using SDKSmartTrainnerAdaptor;
 using SDKSmartTrainnerAdaptor.Ble;
+using System.Linq;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 {
     public partial class CharacteristicsRead
     {
 
-        public static void heart_rate_measurement(Dictionary<string,byte[]> WorkingDataDictonaryByte_temp)
+        public static void heart_rate_measurement()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataDictonaryByte_temp)
+            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.HeartRateMeasurement;
 

@@ -16,7 +16,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
             return _CheckSumByte;
         }
 
-        public static void TACX_FEC_WRITE_CHARACTERISTIC(Dictionary<string, byte[]> WorkingDataDictonaryByte_temp)
+        public static void TACX_FEC_WRITE_CHARACTERISTIC()
         {
 
             foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.ListaConfiguracaoDispositivos)

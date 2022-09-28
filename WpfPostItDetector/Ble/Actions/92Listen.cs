@@ -11,17 +11,17 @@ using SDKSmartTrainnerAdaptor.Ble;
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
-        {
+       {
 
         public Dictionary<string, bool> isUpdating = new Dictionary<string, bool>();
 
-        public void Listen(Characteristic characteristic)
+        public async Task ListenAsync(Characteristic characteristic)
         {
 
 
             characteristic.ValueUpdated -= (o, args) => { };
 
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
 
 
             characteristic.ValueUpdated += (o, args) =>
@@ -31,7 +31,8 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                 WorkingDataBLE.WorkingDataDictonaryLastUpdate[args.Characteristic.Service.Device] = DateTime.Now;
             };
 
-            Thread.Sleep(1000);
+            await Task.Delay(1000);
+
             characteristic.StartUpdatesAsync();
 
 

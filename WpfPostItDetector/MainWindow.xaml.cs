@@ -55,10 +55,11 @@ namespace SDKSmartTrainnerAdaptor
             this.DataContext = this;
             GetVideoDevices();
             Threshold = 127;
-            Radius = 30;
+            Radius = 20;
             Original = true;
             this.Closing += MainWindow_Closing;
-            SetDefaults(); 
+            SetDefaults();
+            StartCamera();
         }
 
         #endregion

@@ -19,12 +19,10 @@ namespace SDKSmartTrainnerAdaptor.Ble
             rootClass = _rootClass;
 
             Configuration.BLEConfigurationInitialization.StartBLEConfigurationInitialization();
-     
-            StartScan();
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += TimerTick1;
-            timer.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.updateConnections);
+            timer.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.scanNewDevicesTime);
             timer.Start();
 
             DispatcherTimer timer2 = new DispatcherTimer();
@@ -36,29 +34,24 @@ namespace SDKSmartTrainnerAdaptor.Ble
             timer3.Tick += TimerTick3;
             timer3.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.updateTime);
             timer3.Start();
+
+
         }
         private static async void TimerTick1(object sender, object e)
         {
-            ble.updateConnections();
+            ble.scanNewDevices();
         }
 
         private static async void TimerTick2(object sender, object e)
         {
-            ble.updateAsync();
+            ble.connectDevices();
 
         }
         private static async void TimerTick3(object sender, object e)
         {
- 
+            ble.updateAsync();
             CharacteristicsRead.InterpretateReadDataFromBLE();
-            SDKSmartTrainnerAdaptor.Ble.DataPriority.DataPriority.CheckData(); 
-
-        }
-
-        public static void StartScan()
-        {
-
-            ble.scanNewDevices();
+            DataPriority.DataPriority.CheckData(); 
 
         }
 

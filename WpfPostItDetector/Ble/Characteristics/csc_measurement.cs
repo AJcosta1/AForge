@@ -3,15 +3,16 @@ using SDKSmartTrainnerAdaptor;
 using System.Collections;
 using System.Collections.Generic;
 using SDKSmartTrainnerAdaptor.Ble;
+using System.Linq;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 {
     public partial class CharacteristicsRead
     {
 
-        public static void csc_measurement(Dictionary<string, byte[]> WorkingDataDictonaryByte_temp)
+        public static void csc_measurement()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataDictonaryByte_temp)
+            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.CSCMeasurement;
 
