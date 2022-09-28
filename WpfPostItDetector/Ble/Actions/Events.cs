@@ -46,6 +46,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                         {
                             WorkingDataBLE.Current.SessonData.DevicesDetected.Add(
                                 new DevicesDetected() { Device = a.Device });
+                            Console.WriteLine("found:" + a.Device.Name);
 
                         }
                     }

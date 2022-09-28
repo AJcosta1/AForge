@@ -36,8 +36,10 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                                     isUpdating = false
 
                                 });
-                            }
+
+                            await Task.Delay(100);
                         }
+                    }
                     if (_device.Characteristics.Count() > 0)
                     {
                         if (!isCompatible(device))

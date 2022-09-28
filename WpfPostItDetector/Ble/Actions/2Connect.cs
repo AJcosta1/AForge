@@ -16,20 +16,21 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
             {
                 var _device = WorkingDataBLE.Current.SessonData.DevicesDetected.First(d => d.Device.Id == device.Id);
 
-                if (isCompatible(device) && _device.isCompatible && device.State!=DeviceState.Connected)
+                if (isCompatible(device) && _device.isCompatible)
                 {
-                    if (adapter.ConnectedDevices.FirstOrDefault(x=>x.Id==device.Id) == null )
-                    {
+                    if (device.State != DeviceState.Connected) {
+                        if (adapter.ConnectedDevices.FirstOrDefault(x => x.Id == device.Id) == null)
+                        {
 
-                        if (!WorkingDataBLE.WorkingDataDictonaryLastUpdate.ContainsKey(device))
-                            WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
+                            if (!WorkingDataBLE.WorkingDataDictonaryLastUpdate.ContainsKey(device))
+                                WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
 
 
-                        TimeSpan ts = DateTime.Now - WorkingDataBLE.WorkingDataDictonaryLastUpdate[device];
+                            TimeSpan ts = DateTime.Now - WorkingDataBLE.WorkingDataDictonaryLastUpdate[device];
 
-                        if (Convert.ToInt32(ts.TotalSeconds) > 5)
+                            if (Convert.ToInt32(ts.TotalSeconds) > 5)
                             {
-                            try {
+                                try {
 
                                     adapter.ConnectToDeviceAsync(device, new ConnectParameters(autoConnect: true, forceBleTransport: true));
 
@@ -39,8 +40,13 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                                 catch (DeviceConnectionException e)
                                 {
                                 }
-                            
+
+                            }
                         }
+                    }
+                    else if (device.State == DeviceState.Limited)
+                    {
+                        clearCharacteristics(device);
                     }
                 }
             }
