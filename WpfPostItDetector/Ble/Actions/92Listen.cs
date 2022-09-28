@@ -18,8 +18,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
         public async Task ListenAsync(Characteristic characteristic)
         {
 
-
-            characteristic.ValueUpdated -= (o, args) => { };
+                        characteristic.ValueUpdated -= (o, args) => { };
 
             await Task.Delay(1000);
 

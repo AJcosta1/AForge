@@ -7,7 +7,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
     {
-
+        
         public async Task updateAsync()
         {
             foreach (var device in adapter.ConnectedDevices.ToList())

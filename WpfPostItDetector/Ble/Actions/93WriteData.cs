@@ -35,7 +35,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
             }
             catch (DeviceConnectionException e)
             {
-
+                
             }
         }
 

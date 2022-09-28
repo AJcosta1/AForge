@@ -18,6 +18,6 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
             WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
         }
-
+        
     }
 }

@@ -9,8 +9,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
     {  
- 
- 
+  
         public void addEvents()
         {
 
