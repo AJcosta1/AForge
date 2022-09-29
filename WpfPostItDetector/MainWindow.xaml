@@ -4,16 +4,82 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:SDKSmartTrainnerAdaptor"
         xmlns:SessonData="clr-namespace:SDKSmartTrainnerAdaptor"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="MainWindow"
-        ResizeMode="NoResize" 
+        ResizeMode="NoResize"
         Width="1382"
         Height="524"
         mc:Ignorable="d">
 
-    <Grid Margin="10,16,10,-6">
-         
-        <Slider x:Name="slider_Copy"
+	<Grid Margin="10,16,10,-6">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="451*" />
+			<ColumnDefinition Width="601*"/>
+			<ColumnDefinition Width="311*" />
+		</Grid.ColumnDefinitions>
+		<Image x:Name="videoPlayer"
+               Margin="6,0,582,203"
+               MouseEnter="videoPlayer_MouseEnter"
+               MouseLeave="videoPlayer_MouseLeave"
+               PreviewMouseLeftButtonDown="videoPlayer_PreviewMouseLeftButtonDown" Grid.ColumnSpan="2" />
+
+		<ComboBox x:Name="comboBox"
+                  Width="167"
+                  Height="21"
+                  Margin="10,0,0,25"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom"
+                  DisplayMemberPath="Name"
+                  ItemsSource="{Binding VideoDevices}"
+                  SelectedItem="{Binding CurrentDevice}" />
+		<Label Width="167"
+               Height="24"
+               Margin="10,0,0,46"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Bottom"
+               Content="Select video source" />
+		<Button Width="67"
+                Height="21"
+                Margin="213,0,0,25"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Click="btnStart_Click"
+                Content="Start" />
+		<Button Width="67"
+                Height="21"
+                Margin="296,0,0,25"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Click="btnStop_Click"
+                Content="Stop" />
+		<ToggleButton Grid.Column="1"
+                      Width="96"
+                      Height="26"
+                      Margin="29,102,0,0"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Content="Color picker"
+                      IsChecked="{Binding PickingColor}" />
+		<TextBlock Grid.Column="1"
+                   Width="96"
+                   Height="19"
+                   Margin="29,133,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Text="RGB:"
+                   TextWrapping="Wrap">
+			<Run Text="{Binding RGB}" />
+		</TextBlock>
+		<CheckBox x:Name="cbColorFiltering"
+                  Grid.Column="1"
+                  Width="98"
+                  Height="21"
+                  Margin="27,44,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Content="Color filtering"
+                  IsChecked="{Binding ColorFiltered}" />
+		<Slider x:Name="slider_Copy"
                 Grid.Column="1"
                 Width="98"
                 Height="32"
@@ -25,7 +91,7 @@
                 Maximum="256"
                 Minimum="0"
                 Value="{Binding Radius}" />
-        <ToggleButton Grid.Column="1"
+		<ToggleButton Grid.Column="1"
             Width="96"
             Height="26"
             Margin="29,414,0,0"
@@ -34,7 +100,22 @@
             Content="Calibrate"
             IsChecked="{Binding Calibrate}" Checked="Calibrate" />
 
-        <ToggleButton Grid.Column="1"
+
+
+
+		<ListView Height="123" HorizontalAlignment="Left" Margin="146,19,0,0" Name="listViewDocuments" VerticalAlignment="Top" Width="347" DataContext="{Binding DocumentList}" Grid.Column="1">
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Width="160" Header="Description" DisplayMemberBinding="{Binding Description}"/>
+					<GridViewColumn Width="160" Header="Date Filed" DisplayMemberBinding="{Binding DateFiled}"/>
+					<GridViewColumn Width="160" Header="Filed By" DisplayMemberBinding="{Binding UserFiledName}"/>
+					<GridViewColumn Width="150" Header="Page" DisplayMemberBinding="{Binding Pages}"/>
+					<GridViewColumn Width="150" Header="Notes" DisplayMemberBinding="{Binding Notes}"/>
+					<GridViewColumn Width="Auto" Header="" />
+				</GridView>
+			</ListView.View>
+		</ListView>
+		<ToggleButton Grid.Column="1"
             Width="96"
             Height="26"
             Margin="27,213,0,0"
@@ -42,30 +123,36 @@
             VerticalAlignment="Top"
             Content="Default Color"
             IsChecked="{Binding PickingColor}" Checked="SetDefaults" />
-        <TextBlock Grid.Column="1"
+		<TextBlock Grid.Column="1"
             Width="96"
             Height="19"
             Margin="29,390,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="Pos:"
-            TextWrapping="Wrap"><Run Text="{Binding PosX}" /></TextBlock>
+            TextWrapping="Wrap">
+			<Run Text="{Binding PosX}" />
+		</TextBlock>
 
-        <TextBlock Grid.Column="1"
+		<TextBlock Grid.Column="1"
             Width="96"
             Height="19"
             Margin="146,186,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="HR:"
-            TextWrapping="Wrap"><Run Text="{Binding HeartRateBPM}"/></TextBlock>
-        <TextBlock Grid.Column="1"
+            TextWrapping="Wrap">
+			<Run Text="{Binding HeartRateBPM}"/>
+		</TextBlock>
+		<TextBlock Grid.Column="1"
             Width="96"
             Height="19"
             Margin="27,366,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="Pos:"
-            TextWrapping="Wrap"><Run Text="{Binding _PosXAVG}" /></TextBlock>
-    </Grid>
+            TextWrapping="Wrap">
+			<Run Text="{Binding _PosX}" />
+		</TextBlock>
+	</Grid>
 </Window>

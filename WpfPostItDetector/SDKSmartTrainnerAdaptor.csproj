@@ -113,6 +113,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Ble\Actions\Events.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Telemetry\Class1.cs" />
     <Compile Include="MotionDetector\BitmapHelpers.cs" />
     <Compile Include="Ble\Actions\0Scan.cs" />
@@ -144,6 +147,10 @@
     <Compile Include="Ble\WorkingDataBle.cs" />
     <Compile Include="GlobalLibs\StartClass.cs" />
     <Compile Include="GlobalLibs\Variables.cs" />
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MotionDetector\ImageMethods.cs" />
