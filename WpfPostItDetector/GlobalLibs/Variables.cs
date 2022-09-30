@@ -11,6 +11,13 @@ namespace SDKSmartTrainnerAdaptor
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         #region Aplication
+        public double GameSlope
+        {
+            get { return GetPropertyValue<double>("GameSlope"); }
+            set { SetPropertyValue("GameSlope", value); }
+
+        }
+
         public double Slope
         {
             get { return GetPropertyValue<double>("Slope"); }
@@ -19,7 +26,7 @@ namespace SDKSmartTrainnerAdaptor
 
         public String UISlope
         {
-            get { return ("%= " + Slope); }
+            get { return ("%= " + GameSlope); }
         }
 
         public double Power
@@ -52,11 +59,41 @@ namespace SDKSmartTrainnerAdaptor
             set { SetPropertyValue("Speed_ms", value); }
         }
 
-        public double Speed
+        public double Speed //from trainer
         {
             get { return GetPropertyValue<double>("Speed_ms") * 3.6; }
-
+            set {  }
         }
+
+        public double GameSpeed//after math
+        {
+            get { return GetPropertyValue<double>("GameSpeed"); }
+            set { SetPropertyValue("GameSpeed", value); }
+        }
+
+        public double GameSpeedRead //from game
+        {
+            get { return GetPropertyValue<double>("GameSpeedRead"); }
+            set { SetPropertyValue("GameSpeedRead", value); }
+        }
+
+        public double ToGameAcceleration
+        {
+            get { return GetPropertyValue<double>("ToGameAcceleration"); }
+            set { SetPropertyValue("ToGameAcceleration", value); }
+        }
+
+        public double ToGameBrake
+        {
+            get { return GetPropertyValue<double>("ToGameBrake"); }
+            set { SetPropertyValue("ToGameBrake", value); }
+        }
+        public double ToGameDirection
+        {
+            get { return GetPropertyValue<double>("ToGameDirection"); }
+            set { SetPropertyValue("ToGameDirection", value); }
+        }
+
 
         public String UISpeed
         {

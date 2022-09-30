@@ -84,6 +84,7 @@
     <Reference Include="System.BluetoothLe, Version=2.0.2110.291, Culture=neutral, PublicKeyToken=67bb4f2cc34b65e6, processorArchitecture=MSIL">
       <HintPath>..\packages\DSoft.System.BluetoothLe.2.0.2110.291\lib\net461\System.BluetoothLe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -104,6 +105,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Maths\ToGameDirection.cs" />
+    <Compile Include="Maths\Speed.cs" />
+    <Compile Include="Telemetry\SendData.cs" />
+    <Compile Include="Telemetry\Utils.cs" />
+    <Compile Include="Telemetry\Reader.cs" />
+    <Compile Include="Telemetry\Writer.cs" />
+    <Compile Include="Telemetry\TelemetryPacket.cs" />
+    <Compile Include="Telemetry\Start.cs" />
     <Page Include="Cursors\Cursors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -113,10 +122,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Ble\Actions\Events.cs" />
+    <Compile Include="Maths\ToTurboSlope.cs" />
+    <Compile Include="Maths\ToGameAccelerationBrake.cs" />
+    <Compile Include="Maths\Start.cs" />
+    <Compile Include="GameControllerHID\GamePad.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Telemetry\Class1.cs" />
+    <Compile Include="Telemetry\ReadData.cs" />
     <Compile Include="MotionDetector\BitmapHelpers.cs" />
     <Compile Include="Ble\Actions\0Scan.cs" />
     <Compile Include="Ble\Actions\2Connect.cs" />
@@ -195,6 +208,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\imagemFundo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imagemFundo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

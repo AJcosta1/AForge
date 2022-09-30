@@ -21,7 +21,14 @@ namespace SDKSmartTrainnerAdaptor
             /// </summary>
 
             Ble.Start.StartServices(this);
- 
+
+            Maths.Maths.StartServices(this);
+
+            Telemetry.Telemetry.StartServices(this);
+
+            //GameControllerHID.GameControllerHID.StartServices(this);
+
+
 
         }
     }

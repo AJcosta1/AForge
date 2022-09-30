@@ -20,6 +20,9 @@ namespace SDKSmartTrainnerAdaptor.Ble
 
             Configuration.BLEConfigurationInitialization.StartBLEConfigurationInitialization();
 
+            ble.scanNewDevices();
+
+
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += TimerTick1;
             timer.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.scanNewDevicesTime);

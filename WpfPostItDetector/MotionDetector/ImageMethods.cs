@@ -80,7 +80,7 @@ namespace SDKSmartTrainnerAdaptor
                     {
                         var corners = FindCorners(bitmap);
                         _PosX = corners.Count() > 0 ? corners.Select(c => c.X).Average() : _PosX;
-             
+
 
                         if (corners.Any())
                         {
@@ -90,7 +90,7 @@ namespace SDKSmartTrainnerAdaptor
                     }
                 }
                 bi.Freeze(); // avoid cross thread operations and prevents leaks
-     
+                Dispatcher.BeginInvoke(new ThreadStart(delegate { videoPlayer.Source = bi; }));
             }
             catch (Exception exc)
             {
@@ -100,6 +100,32 @@ namespace SDKSmartTrainnerAdaptor
         }
 
 
+
+        /// <summary>
+        /// Handles the click when the user picks a color from the image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void videoPlayer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (PickingColor)
+            {
+                var clickPoint = e.GetPosition(videoPlayer);
+                var image = videoPlayer.Source as BitmapImage;
+                // color finding algorithm taken from:
+                // http://stackoverflow.com/questions/1176910/finding-specific-pixel-colors-of-a-bitmapimage
+                int stride = image.PixelWidth * 4;
+                int size = image.PixelHeight * stride;
+                byte[] pixels = new byte[size];
+                image.CopyPixels(pixels, stride, 0);
+                int index = ((int)clickPoint.Y) * stride + 4 * ((int)clickPoint.X);
+                Blue = pixels[index];
+                Green = pixels[index + 1];
+                Red = pixels[index + 2];
+                PickingColor = false;
+                Cursor = Cursors.Arrow;
+            }
+        }
 
         #endregion
 
@@ -215,4 +241,3 @@ namespace SDKSmartTrainnerAdaptor
 
 
 }
-

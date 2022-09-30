@@ -14,6 +14,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
         {
 
             adapter = System.BluetoothLe.BluetoothLE.Current.Adapter;
+            adapter.ScanTimeout = BLEConfiguration.scanNewDevicesTimout;
 
             addEvents();
 
