@@ -1,33 +1,33 @@
 ﻿using System;
-using System.BluetoothLe;
 using System.Threading;
+using Windows.Devices.Bluetooth;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
     {
 
-        public void disconnectDevice(Device _device)
+        public void disconnectDevice(BluetoothLEDevice _device)
         {
+
             try
             {
-                if (!isScanning())
-                {
-                    adapter.DisconnectDeviceAsync(_device);
 
-                    Thread.Sleep(1000);
-                }
+                _device.Dispose();
+
+
+                Thread.Sleep(1000);
+
 
 
             }
-            catch (DeviceConnectionException e)
+            catch (Exception e)
             {
 
                 // WorkingDataEvent.ListaEventosGerados.Add(new Abstractions.WorkingData.Event.Part() { description = FormVariableNames.EventCloudNotConnectToDeviceBLE + " " + name, data = DateTime.UtcNow.ToString("HH:mm:ss", CultureInfo.InvariantCulture) });
             }
 
         }
-
 
     }
 }

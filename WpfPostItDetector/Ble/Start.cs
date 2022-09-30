@@ -3,7 +3,6 @@ using SDKSmartTrainnerAdaptor.Ble.Characteristics;
 using SDKSmartTrainnerAdaptor.Ble.Configuration;
 using SDKSmartTrainnerAdaptor.Ble.DataPriority;
 using System;
-using System.BluetoothLe;
 using System.Windows.Threading;
 
 namespace SDKSmartTrainnerAdaptor.Ble
@@ -11,21 +10,23 @@ namespace SDKSmartTrainnerAdaptor.Ble
 
     public static class Start
     {
-        public static BLEMethods ble = new BLEMethods();
+        public static BLEMethods ble;
         public static MainWindow rootClass;
 
         public static void StartServices(MainWindow _rootClass)
         {
             rootClass = _rootClass;
+            ble = new BLEMethods(rootClass);
+
 
             Configuration.BLEConfigurationInitialization.StartBLEConfigurationInitialization();
 
-            ble.scanNewDevices();
+            ble.ScanGatt();
 
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += TimerTick1;
-            timer.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.scanNewDevicesTime);
+            timer.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.updateConnections);
             timer.Start();
 
             DispatcherTimer timer2 = new DispatcherTimer();
@@ -42,19 +43,19 @@ namespace SDKSmartTrainnerAdaptor.Ble
         }
         private static async void TimerTick1(object sender, object e)
         {
-            ble.scanNewDevices();
+            await ble.updateConnections();
         }
 
         private static async void TimerTick2(object sender, object e)
         {
-            ble.connectDevices();
+           // ble.connectDevices();
 
         }
         private static async void TimerTick3(object sender, object e)
         {
             ble.updateAsync();
             CharacteristicsRead.InterpretateReadDataFromBLE();
-            DataPriority.DataPriority.CheckData(); 
+            DataPriority.DataPriority.CheckData();
 
         }
 

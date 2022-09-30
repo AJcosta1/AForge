@@ -13,7 +13,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
         public static void heart_rate_measurement()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
+            foreach (var ListaConfiguracaoDispositivos in Variables.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.HeartRateMeasurement;
 
@@ -48,13 +48,13 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                                 value = Convert.ToUInt16(ListaConfiguracaoDispositivos.Value[byteStart]);
 
                             }
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = value;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = value;
                         }
                         else
                         {
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
                         }
 
                     }

@@ -33,19 +33,19 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
         {
 
             float outputValue = 0;
-            if (WorkingDataBLE.WorkingDataDictonaryTratedFloat.Count > 0)
+            if (Variables.WorkingDataDictonaryTratedFloat.Count > 0)
             {
              
-                lock(WorkingDataBLE.WorkingDataDictonaryTratedFloat)
+                lock(Variables.WorkingDataDictonaryTratedFloat)
                 {
 
-                    var results =WorkingDataBLE.WorkingDataDictonaryTratedFloat.Where(p => p.Key.Contains('|')).ToList();
+                    var results = Variables.WorkingDataDictonaryTratedFloat.Where(p => p.Key.Contains('|')).ToList();
               
                     var results2 = results.Where(x => x.Key.Split('|')[1] == characteristic.ToUpper() && x.Key.Split('|')[2] == "_" + variableToReadInput.ToString());
             
 
                 if (results2.Count() > 0)
-                        foreach (var result in results2)
+                        foreach (var result in results2.ToList())
                             if (result.Value > outputValue) outputValue = result.Value;
                 }
             }

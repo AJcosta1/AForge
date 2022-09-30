@@ -13,7 +13,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
         public static void cycling_power()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
+            foreach (var ListaConfiguracaoDispositivos in Variables.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.CyclingPowerMeasurement;
 
@@ -41,7 +41,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
                             value = (float)BitConverter.ToUInt16(ListaConfiguracaoDispositivos.Value, byteStart);
 
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = value;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = value;
 
 
                             //Cadence
@@ -65,13 +65,13 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                                 value = 0;
                                
                             }
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead2] = value;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead2] = value;
                         }
                         else
                         {
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
+                           Variables.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
                         }
 
                     }

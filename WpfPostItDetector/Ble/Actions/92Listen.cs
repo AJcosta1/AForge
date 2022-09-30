@@ -1,41 +1,45 @@
 ﻿
 using SDKSmartTrainnerAdaptor;
-using SDKSmartTrainnerAdaptor;
 using System;
-using System.BluetoothLe;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using SDKSmartTrainnerAdaptor.Ble;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
+using Windows.Storage.Streams;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
-       {
+    {
 
         public Dictionary<string, bool> isUpdating = new Dictionary<string, bool>();
 
-        public async Task ListenAsync(Characteristic characteristic)
+        public async Task ListenAsync(GattCharacteristic characteristic, BluetoothLEDeviceDisplay device)
         {
 
-                        characteristic.ValueUpdated -= (o, args) => { };
-
-            await Task.Delay(1000);
-
-
-            characteristic.ValueUpdated += (o, args) =>
+            try
             {
-                WorkingDataBLE.WorkingDataDictonaryByte[args.Characteristic.Service.Device.Id.ToString().ToUpper() + "|" + args.Characteristic.Id.ToString().ToUpper()] = args.Characteristic.Value;
+                await characteristic.WriteClientCharacteristicConfigurationDescriptorAsync(GattClientCharacteristicConfigurationDescriptorValue.Notify);
+            }
+            catch (Exception e)
+            { }
+            characteristic.ValueChanged -= (o, args) => { };
 
-                WorkingDataBLE.WorkingDataDictonaryLastUpdate[args.Characteristic.Service.Device] = DateTime.Now;
+            SDKSmartTrainnerAdaptor.Ble.Start.rootClass.loggerAdd("Listen: " + device.Name);
+
+            characteristic.ValueChanged += (o, args) =>
+            {
+                var buffer = args.CharacteristicValue;
+                DataReader dataReader = DataReader.FromBuffer(buffer);
+                byte[] bytes = new byte[buffer.Length];
+                dataReader.ReadBytes(bytes);
+
+                Variables.WorkingDataDictonaryByte[device.Id.ToString().ToUpper() + "|" + o.Uuid.ToString().ToUpper()] = bytes;
+
             };
 
-            await Task.Delay(1000);
-
-            characteristic.StartUpdatesAsync();
-
-
-
+            Thread.Sleep(1000);
 
 
         }

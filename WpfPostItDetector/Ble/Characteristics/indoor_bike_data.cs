@@ -12,7 +12,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
     {
         public static void indoor_bike_data()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
+            foreach (var ListaConfiguracaoDispositivos in Variables.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.IndoorBikeData;
 
@@ -48,7 +48,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
                             float rotacao = (float)( speed * 60000 / wheelPerimeter);
 
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = rotacao;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = rotacao;
 
 
                             var output = (value / 100).ToString("0.0");
@@ -57,9 +57,9 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                         }
                         else
                         {
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
                         }
 
                     }

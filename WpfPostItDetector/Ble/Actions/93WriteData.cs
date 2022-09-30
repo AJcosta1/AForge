@@ -1,44 +1,47 @@
-﻿using System;
-using System.BluetoothLe;
+﻿
+using SDKSmartTrainnerAdaptor; 
+using System;
+using System.Collections;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using SDKSmartTrainnerAdaptor.Ble;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
     {
-        public async Task WriteData(Characteristic characteristic)
+        public async Task WriteData(GattCharacteristic characteristic, BluetoothLEDeviceDisplay device)
         {
             try
             {
                 for (int i = 1; i <= 3; i++)
                 {
-                    string tag = characteristic.Id.ToString().ToUpper() + "|_WriteTratedValue_" + i.ToString();
+                    string tag = characteristic.Uuid.ToString().ToUpper() + "|_WriteTratedValue_" + i.ToString();
 
-                    if (WorkingDataBLE.WorkingDataDictonaryByte.ContainsKey(tag))
+                    if (Variables.WorkingDataDictonaryByte.ContainsKey(tag))
                     {
-                        if (WorkingDataBLE.WorkingDataDictonaryByte.ContainsKey(tag + "_last"))
+                        if (Variables.WorkingDataDictonaryByte.ContainsKey(tag + "_last"))
                         {
-                            if (WorkingDataBLE.WorkingDataDictonaryByte[tag] != WorkingDataBLE.WorkingDataDictonaryByte[tag + "_last"])
+                            if (Variables.WorkingDataDictonaryByte[tag] != Variables.WorkingDataDictonaryByte[tag + "_last"])
                             {
-                                await characteristic.WriteAsync(WorkingDataBLE.WorkingDataDictonaryByte[tag]);
+                                await characteristic.WriteValueAsync(Variables.WorkingDataDictonaryByte[tag].AsBuffer());
                             }
                         }
                         else
                         {
-                            await characteristic.WriteAsync(WorkingDataBLE.WorkingDataDictonaryByte[tag]);
+                            await characteristic.WriteValueAsync(Variables.WorkingDataDictonaryByte[tag].AsBuffer());
                         }
-                        WorkingDataBLE.WorkingDataDictonaryByte[tag + "_last"] = WorkingDataBLE.WorkingDataDictonaryByte[tag];
-                        WorkingDataBLE.WorkingDataDictonaryLastUpdate[characteristic.Service.Device] = DateTime.Now;
+                        Variables.WorkingDataDictonaryByte[tag + "_last"] = Variables.WorkingDataDictonaryByte[tag];
+                        Variables.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
                     }
                 }
             }
-            catch (DeviceConnectionException e)
+            catch (Exception e)
             {
-                
+
             }
         }
-
 
 
     }

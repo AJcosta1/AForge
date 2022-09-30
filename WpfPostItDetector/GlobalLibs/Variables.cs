@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Windows;
 
 namespace SDKSmartTrainnerAdaptor
@@ -150,7 +151,27 @@ namespace SDKSmartTrainnerAdaptor
 
         #endregion
 
+        public string LogText
+        {
+            get { return GetPropertyValue<string>("LogText"); }
+            set { SetPropertyValue("LogText", value); }
 
+        }
+
+        public void loggerAdd(string logMessage)
+        {
+            if(LogText==null)
+                LogText="";
+            Console.WriteLine(logMessage);
+            LogText += logMessage + "\n";
+            LogText += "";
+            OnPropertyChanged("LogText");
+        }
+
+        public void loggerClear()
+        {
+            LogText = "";
+        }
 
         public T GetPropertyValue<T>(string property, object def = null)
         {

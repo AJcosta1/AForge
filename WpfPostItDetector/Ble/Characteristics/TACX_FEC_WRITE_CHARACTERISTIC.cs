@@ -19,7 +19,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
         public static void TACX_FEC_WRITE_CHARACTERISTIC()
         {
 
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.ListaConfiguracaoDispositivos)
+            foreach (var ListaConfiguracaoDispositivos in Variables.ListaConfiguracaoDispositivos)
             {
                 //TYPE WRITE
                 string characteristic = _Characteristics.TACX_FEC_WRITE_CHARACTERISTIC;
@@ -64,9 +64,9 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                     //Checksum
                     dataToWrite[12] = CalCheckSum(dataToWrite,13);
 
-                    lock (WorkingDataBLE.WorkingDataDictonaryByte)
+                    lock (Variables.WorkingDataDictonaryByte)
                     {
-                        WorkingDataBLE.WorkingDataDictonaryByte[characteristic + "|" + source] = dataToWrite;
+                        Variables.WorkingDataDictonaryByte[characteristic + "|" + source] = dataToWrite;
 
                     }
 

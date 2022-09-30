@@ -1,7 +1,6 @@
 ﻿using SDKSmartTrainnerAdaptor;
 using SDKSmartTrainnerAdaptor;
-using System;
-using System.BluetoothLe;
+using System; 
 using System.Collections.Generic;
 using System.Linq;
 using SDKSmartTrainnerAdaptor.Ble;
@@ -24,34 +23,16 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
             public static bool connected(string device)
             {
-                bool connected = false;
+            BluetoothLEDeviceDisplay deviceFound = Variables.DevicesDetected.FirstOrDefault(d => (d.Id.ToUpper() == device.ToUpper()));
 
-                if (device != "")
-                {
-                    lock (WorkingDataBLE.Current.SessonData.DevicesDetected)
-                    {
-                        if (WorkingDataBLE.Current.SessonData.DevicesDetected.Count() > 0)
-                        {
-                            try
-                            {
-                                var state = WorkingDataBLE.Current.SessonData.DevicesDetected.Where(p => p.Device.Id.ToString().ToUpper() == device).FirstOrDefault().Device.State;
+            if (deviceFound != null)
+                //return deviceFound.IsConnected;
+                return true;
 
+            return false;
+          }
 
-                                if (state == DeviceState.Connected)
-                                    connected = true;
-                            }
-
-                            catch
-                            {
-
-                            }
-                        }
-                    }
-                }
-                return connected;
-            }
-
-            public static float Calc_Time_Based_Ble_Rotation(string deviceID, string characteristic, string name, byte[] readValue, int startValueByte, bool ValueUint16, int startTimeByte, bool TimeUint16)
+        public static float Calc_Time_Based_Ble_Rotation(string deviceID, string characteristic, string name, byte[] readValue, int startValueByte, bool ValueUint16, int startTimeByte, bool TimeUint16)
             {
 
                 float NewValue = 0;
@@ -80,20 +61,20 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                 string oldValueString = characteristic + "|" + deviceID + "|_" + name + "_Value_old";
                 string oldTimeString = characteristic + "|" + deviceID + "|_" + name + "_Time_old";
 
-                if (!WorkingDataBLE.WorkingDataDictonaryTratedFloat.ContainsKey(oldValueString))
-                    WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldValueString] = NewValue;
+                if (!Variables.WorkingDataDictonaryTratedFloat.ContainsKey(oldValueString))
+                Variables.WorkingDataDictonaryTratedFloat[oldValueString] = NewValue;
 
-                if (!WorkingDataBLE.WorkingDataDictonaryTratedFloat.ContainsKey(oldTimeString))
-                    WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldTimeString] = NewTime;
-
-
+                if (!Variables.WorkingDataDictonaryTratedFloat.ContainsKey(oldTimeString))
+                Variables.WorkingDataDictonaryTratedFloat[oldTimeString] = NewTime;
 
 
-                float OldValue = WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldValueString];
-                float OldTime = WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldTimeString];
 
-                WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldValueString] = NewValue;
-                WorkingDataBLE.WorkingDataDictonaryTratedFloat[oldTimeString] = NewTime;
+
+                float OldValue = Variables.WorkingDataDictonaryTratedFloat[oldValueString];
+                float OldTime = Variables.WorkingDataDictonaryTratedFloat[oldTimeString];
+
+            Variables.WorkingDataDictonaryTratedFloat[oldValueString] = NewValue;
+            Variables.WorkingDataDictonaryTratedFloat[oldTimeString] = NewTime;
 
 
 

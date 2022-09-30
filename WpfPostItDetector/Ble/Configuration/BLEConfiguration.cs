@@ -13,8 +13,8 @@ namespace SDKSmartTrainnerAdaptor.Ble.Configuration
         /// <summary>
         /// BLE Device scan time in millisencons
         /// </summary>
-        public const int scanNewDevicesTime = 10000;
-        public const int scanNewDevicesTimout = 4000; 
+        public const int scanNewDevicesTime = 30000;
+        public const int scanNewDevicesTimout = 10000; 
 
         /// <summary>
         /// BLE Device scan time in millisencons
@@ -73,7 +73,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Configuration
 
         public static void addConfiguration()
             {
-                WorkingDataBLE.ListaConfiguracaoDispositivos.Add(new DeviceDataList() { service = _service.ToUpper(), characteristic = _characteristic.ToUpper(), read = _read, dataToWrite = _dataToWrite });
+                Variables.ListaConfiguracaoDispositivos.Add(new DeviceDataList() { service = _service.ToUpper(), characteristic = _characteristic.ToUpper(), read = _read, dataToWrite = _dataToWrite });
                 resetVariables();
             }
 

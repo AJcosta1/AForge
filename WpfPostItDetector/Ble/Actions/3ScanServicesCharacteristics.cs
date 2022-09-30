@@ -1,69 +1,97 @@
 ﻿using SDKSmartTrainnerAdaptor;
-using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
-using SDKSmartTrainnerAdaptor;
+using SDKSmartTrainnerAdaptor.Ble.UuidDictionary; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.BluetoothLe;
-using SDKSmartTrainnerAdaptor.Ble;
-using System.Linq.Expressions;
+using Windows.Devices.Bluetooth;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
 
     public partial class BLEMethods
-     {
-        public async Task ScanServicesCharacteristics(Device device)
+    {
+
+        public Dictionary<BluetoothLEDeviceDisplay, bool> compatibleList = new Dictionary<BluetoothLEDeviceDisplay, bool>();
+
+
+        public async Task ScanServicesCharacteristic(BluetoothLEDeviceDisplay deviceInf, BluetoothLEDevice device)
         {
+            GattDeviceServicesResult resultServices = await device.GetGattServicesAsync();
 
-           
-                var _device = WorkingDataBLE.Current.SessonData.DevicesDetected.First(d => d.Device.Id == device.Id);
-
-                try
+            if (resultServices.Status == GattCommunicationStatus.Success)
+            {
+                if (isCompatible(resultServices.Services))
                 {
-                    if (device.State==DeviceState.Connected) {
-                        IReadOnlyList<Service> _servicesFound = await device?.GetServicesAsync();
 
-                        foreach (var _service in _servicesFound)
-                        {
-                            IReadOnlyList<Characteristic> _characteristicsFound = await _service.GetCharacteristicsAsync();
-                            foreach (var c in _characteristicsFound)
-                            {
-                                _device.Characteristics.Add(new DevicesCharacteristics()
-                                {
-                                    Characteristic = c,
-                                    isUpdating = false
+                    Device _device = FindDevice(deviceInf.Id);
 
-                                });
-
-                            await Task.Delay(100);
-                        }
-                    }
-                    if (_device.Characteristics.Count() > 0)
+                    if (_device == null)
                     {
-                        if (!isCompatible(device))
+                        _device = new Device()
                         {
-                            device.CancelEverything();
-                            adapter.DisconnectDeviceAsync(device);
-                            _device.isCompatible = false;
-                        }
+                            device = device,
+                            DeviceInformation = deviceInf
+                        };
+
+                      
                     }
-                    else
-                        _device.isCompatible = false;
 
+                    if (!_device.DeviceInformation.IsPaired)
+                        Pair(_device.DeviceInformation);
 
+                    foreach (var service in resultServices.Services)
+                    {
+
+                        GattCharacteristicsResult resultCharacteristics = await service.GetCharacteristicsAsync();
+
+                        if (resultCharacteristics.Status == GattCommunicationStatus.Success)
+                        {
+                            foreach (var Characteristics in resultCharacteristics.Characteristics.ToList())
+                            {
+                                _device.Characteristics.Add(Characteristics);
+                            }         
+
+                        }
+
+                    }
+
+                    Variables.SessonData.DevicesConnected.Add(_device);
+                    SDKSmartTrainnerAdaptor.Ble.Start.rootClass.loggerAdd("Connected: " + device.Name);
                 }
-
-            }
-                catch (Exception e)
+                else
                 {
-
+                    compatibleList[deviceInf] = false;
+                    disconnectDevice(device);
                 }
-             
+            }
         }
 
+        public bool isCompatible(IReadOnlyList<GattDeviceService> serviceList)
+        {
 
+            foreach (var service in serviceList)
+            {
+                if (Variables.ListaConfiguracaoDispositivos.Find(d => d.service == service.Uuid.ToString().ToUpper()) != null)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private Device FindDevice(string id)
+        {
+            foreach (Device bleDeviceDisplay in Variables.SessonData.DevicesConnected)
+            {
+                if (bleDeviceDisplay.DeviceInformation.Id == id)
+                {
+                    return bleDeviceDisplay;
+                }
+            }
+            return null;
+        }
 
     }
 

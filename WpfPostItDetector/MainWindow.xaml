@@ -8,10 +8,10 @@
         Title="SDKSmartTreinerAdaptor-GTA V"
         ResizeMode="NoResize" 
         Width="1143"
-        Height="530"
+        Height="622"
         mc:Ignorable="d">
 
-    <Grid Margin="10,16,2,-6" RenderTransformOrigin="0.5,0.5">
+    <Grid Margin="10,16,2,54" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
@@ -21,11 +21,12 @@
             </TransformGroup>
         </Grid.RenderTransform>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="451*" />
-            <ColumnDefinition Width="601*"/>
-            <ColumnDefinition Width="311*" />
+            <ColumnDefinition Width="341*" />
+            <ColumnDefinition Width="33*"/>
+            <ColumnDefinition Width="499*"/>
+            <ColumnDefinition Width="258*" />
         </Grid.ColumnDefinitions>
-        <Image HorizontalAlignment="Left" Height="437" Margin="-4,23,0,0" VerticalAlignment="Top" Width="643" Grid.ColumnSpan="2" Source="/imagemFundo.png" RenderTransformOrigin="0.5,0.5">
+        <Image HorizontalAlignment="Left" Height="437" Margin="-7,20,0,0" VerticalAlignment="Top" Width="643" Grid.ColumnSpan="3" Source="/imagemFundo.png" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -36,41 +37,41 @@
             </Image.RenderTransform>
         </Image>
         <Image x:Name="videoPlayer"
-               Margin="245,134,133,65"
+               Margin="255,120,133,120"
                MouseEnter="videoPlayer_MouseEnter"
                MouseLeave="videoPlayer_MouseLeave"
-               PreviewMouseLeftButtonDown="videoPlayer_PreviewMouseLeftButtonDown" Grid.ColumnSpan="2" Grid.Column="1" />
+               PreviewMouseLeftButtonDown="videoPlayer_PreviewMouseLeftButtonDown" Grid.ColumnSpan="2" Grid.Column="2" />
 
         <ComboBox x:Name="comboBox"
                   Width="180"
-                  Height="25"
-                  Margin="274,0,0,20"
+                  Height="30"
+                  Margin="272,0,0,41"
                   HorizontalAlignment="Left"
                   VerticalAlignment="Bottom"
                   DisplayMemberPath="Name"
                   ItemsSource="{Binding VideoDevices}"
-                  SelectedItem="{Binding CurrentDevice}" Grid.Column="1" />
+                  SelectedItem="{Binding CurrentDevice}" Grid.Column="2" />
         <Label Width="180"
-               Height="28"
-               Margin="274,0,0,45"
+               Height="34"
+               Margin="272,0,0,71"
                HorizontalAlignment="Left"
                VerticalAlignment="Bottom"
-               Content="Select video source" Grid.Column="1" />
+               Content="Select video source" Grid.Column="2" />
         <Button Width="72"
-                Height="25"
-                Margin="484,0,0,20"
+                Height="30"
+                Margin="482,0,0,41"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Click="btnStart_Click"
-                Content="Start" RenderTransformOrigin="11.515,-13.048" Grid.Column="1" Grid.ColumnSpan="2" />
+                Content="Start" RenderTransformOrigin="11.515,-13.048" Grid.Column="2" Grid.ColumnSpan="2" />
         <Button Width="72"
-                Height="25"
-                Margin="62,0,0,20"
+                Height="30"
+                Margin="60,0,0,41"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Click="btnStop_Click"
-                Content="Stop" Grid.Column="2" />
-        <ToggleButton Grid.Column="2"
+                Content="Stop" Grid.Column="3" />
+        <ToggleButton Grid.Column="3"
                       Width="104"
                       Height="31"
                       Margin="139,333,0,0"
@@ -78,7 +79,7 @@
                       VerticalAlignment="Top"
                       Content="Color picker"
                       IsChecked="{Binding PickingColor}" />
-        <TextBlock Grid.Column="2"
+        <TextBlock Grid.Column="3"
                    Width="103"
                    Height="23"
                    Margin="144,366,0,0"
@@ -87,7 +88,7 @@
                    Text="RGB:"
                    TextWrapping="Wrap"><Run Text="{Binding RGB}" /></TextBlock>
         <CheckBox x:Name="cbColorFiltering"
-                  Grid.Column="2"
+                  Grid.Column="3"
                   Width="106"
                   Height="23"
                   Margin="139,261,0,0"
@@ -96,7 +97,7 @@
                   Content="Color filtering"
                   IsChecked="{Binding ColorFiltered}" />
         <Slider x:Name="slider_Copy"
-                Grid.Column="2"
+                Grid.Column="3"
                 Width="105"
                 Height="38"
                 Margin="142,291,0,0"
@@ -109,12 +110,12 @@
         <ToggleButton
             Width="96"
             Height="26"
-            Margin="350,398,0,0"
+            Margin="9,398,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Calibrate"
-            IsChecked="{Binding Calibrate}" Checked="Calibrate" RenderTransformOrigin="-1.258,2.175" Grid.ColumnSpan="2" />
-        <ToggleButton Grid.Column="2"
+            IsChecked="{Binding Calibrate}" Checked="Calibrate" RenderTransformOrigin="-1.258,2.175" Grid.ColumnSpan="2" Grid.Column="1" />
+        <ToggleButton Grid.Column="3"
             Width="103"
             Height="30"
             Margin="142,397,0,0"
@@ -125,15 +126,15 @@
         <TextBlock
             Width="96"
             Height="18"
-            Margin="353,376,0,0"
+            Margin="12,376,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="Pos:"
-            TextWrapping="Wrap" Grid.ColumnSpan="2"><Run Text="{Binding PosX}" /></TextBlock>
+            TextWrapping="Wrap" Grid.ColumnSpan="2" Grid.Column="1"><Run Text="{Binding PosX}" /></TextBlock>
         <TextBlock
             Width="96"
             Height="19"
-            Margin="11,397,0,0"
+            Margin="1,285,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="V:"
@@ -149,7 +150,7 @@
         <TextBlock
             Width="96"
             Height="19"
-            Margin="11,414,0,0"
+            Margin="1,302,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="P:"
@@ -160,19 +161,33 @@
             Margin="461,43,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            TextWrapping="Wrap" Grid.Column="1" Grid.ColumnSpan="2"><Run Language="pt-pt" Text="V:"/><Run Language="pt-pt"  Text="{Binding GameSpeed}" /></TextBlock>
+            TextWrapping="Wrap" Grid.Column="2" Grid.ColumnSpan="2"><Run Language="pt-pt" Text="V:"/><Run Language="pt-pt"  Text="{Binding GameSpeed}" /></TextBlock>
         <TextBlock
             Width="96"
             Height="19"
             Margin="461,60,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            TextWrapping="Wrap" Grid.Column="1" Grid.ColumnSpan="2"><Run Language="pt-pt" Text="%"/><Run Text=":"/><Run Language="pt-pt"  Text="{Binding GameSlope}" /></TextBlock> 
+            TextWrapping="Wrap" Grid.Column="2" Grid.ColumnSpan="2"><Run Language="pt-pt" Text="%"/><Run Text=":"/><Run Language="pt-pt"  Text="{Binding GameSlope}" /></TextBlock>
         <Label Width="180"
             Height="28"
             Margin="451,0,0,459"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Content="From Game" Grid.Column="1" Grid.ColumnSpan="2" />
+            Content="From Game" Grid.Column="2" Grid.ColumnSpan="2" />
+        <ToggleButton
+            Height="26"
+            Margin="30,17,215,0"
+            VerticalAlignment="Top"
+            Content="Scan Devices"
+            IsChecked="{Binding ScanBle}" Checked="ScanBle" RenderTransformOrigin="-1.258,2.175" />
+        <ScrollViewer Margin="0,381,17,-19">
+            <TextBlock 
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                ScrollViewer.CanContentScroll="True"
+                    Text="{Binding LogText}" 
+       Background="#FFBBBBBB" Width="309" />
+        </ScrollViewer>
     </Grid>
 </Window>

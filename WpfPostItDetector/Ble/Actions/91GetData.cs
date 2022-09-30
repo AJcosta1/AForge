@@ -1,23 +1,32 @@
-﻿using System;
-using System.BluetoothLe;
+﻿
+using SDKSmartTrainnerAdaptor; 
+using System;
 using System.Threading.Tasks;
-using SDKSmartTrainnerAdaptor.Ble;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Storage.Streams;
 
 namespace SDKSmartTrainnerAdaptor.Ble.Actions
 {
     public partial class BLEMethods
+    {
+        public async Task GetData(GattCharacteristic characteristic, BluetoothLEDeviceDisplay device)
         {
-        public async Task GetData(Characteristic deviceCharacteristic)
-        {
+            GattReadResult result = await characteristic.ReadValueAsync();
+            if (result.Status == GattCommunicationStatus.Success)
+            {
+                var reader = DataReader.FromBuffer(result.Value);
+                byte[] input = new byte[reader.UnconsumedBufferLength];
+                reader.ReadBytes(input);
 
-            var device = deviceCharacteristic.Service.Device;
-            var _deviceCharacteristic = deviceCharacteristic.Id.ToString().ToUpper();
 
+                Variables.WorkingDataDictonaryByte[device.Id.ToString().ToUpper() + "|" + characteristic.Uuid.ToString().ToUpper()] = input;
 
-            WorkingDataBLE.WorkingDataDictonaryByte[device.Id.ToString().ToUpper() + "|" + _deviceCharacteristic] = await deviceCharacteristic.ReadAsync();
+                Variables.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
+                reader.ReadBytes(input);
 
-            WorkingDataBLE.WorkingDataDictonaryLastUpdate[device] = DateTime.Now;
+            }
+
         }
-        
+
     }
 }

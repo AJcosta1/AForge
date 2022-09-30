@@ -137,7 +137,16 @@ namespace SDKSmartTrainnerAdaptor
 
         }
 
+        private void ScanBle(object sender, RoutedEventArgs e)
+        {
+            SDKSmartTrainnerAdaptor.Ble.Start.ble.ScanGatt();
+        }
         #endregion
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
 

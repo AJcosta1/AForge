@@ -12,7 +12,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
 
         public static void csc_measurement()
         {
-            foreach (var ListaConfiguracaoDispositivos in WorkingDataBLE.WorkingDataDictonaryByte.ToList())
+            foreach (var ListaConfiguracaoDispositivos in Variables.WorkingDataDictonaryByte.ToList())
             {
                 string characteristic = _Characteristics.CSCMeasurement;
 
@@ -46,7 +46,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                                 int startTimeByte = 5;
                                 bool TimeUint16 = true;//false is 32 bits
 
-                               WorkingDataBLE.WorkingDataDictonaryTratedFloat[target]=Calc_Time_Based_Ble_Rotation(deviceID,characteristic, name, ListaConfiguracaoDispositivos.Value, startValueByte, ValueUint16, startTimeByte, TimeUint16);
+                                Variables.WorkingDataDictonaryTratedFloat[target]=Calc_Time_Based_Ble_Rotation(deviceID,characteristic, name, ListaConfiguracaoDispositivos.Value, startValueByte, ValueUint16, startTimeByte, TimeUint16);
                    
 
 
@@ -61,7 +61,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                                 int startTimeByte = 9;
                                 bool TimeUint16 = true;//false is 32 bits
 
-                               WorkingDataBLE.WorkingDataDictonaryTratedFloat[target] = Calc_Time_Based_Ble_Rotation(deviceID,characteristic, name, ListaConfiguracaoDispositivos.Value, startValueByte, ValueUint16, startTimeByte, TimeUint16);
+                                Variables.WorkingDataDictonaryTratedFloat[target] = Calc_Time_Based_Ble_Rotation(deviceID,characteristic, name, ListaConfiguracaoDispositivos.Value, startValueByte, ValueUint16, startTimeByte, TimeUint16);
                
 
                             }
@@ -69,9 +69,9 @@ namespace SDKSmartTrainnerAdaptor.Ble.Characteristics
                         }
                         else
                         {
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
-                           WorkingDataBLE.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead1] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead2] = 0;
+                            Variables.WorkingDataDictonaryTratedFloat[variableToRead3] = 0;
                         }
 
                     }
