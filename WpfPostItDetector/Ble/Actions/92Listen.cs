@@ -27,6 +27,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
             characteristic.ValueChanged -= (o, args) => { };
 
             SDKSmartTrainnerAdaptor.Ble.Start.rootClass.loggerAdd("Listen: " + device.Name);
+ 
 
             characteristic.ValueChanged += (o, args) =>
             {

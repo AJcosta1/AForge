@@ -18,31 +18,80 @@ namespace SDKSmartTrainnerAdaptor.Maths
         static int maxOut = 100;
         public static void StartToGameAccelerationBrake()
         {
+            var xSoc = 20;
+            var tSoc = 10;
+            var P = 2*xSoc;
+            var I = 1.5*tSoc;
+            var D = I / 5;
 
-
-            controllerAcceleration = new PidController(1, 1, 1, minOut, maxOut); //P=1,I=1,D=1,Output between 0 and 100 
-            controllerBrake = new PidController(1, 1, 1, minOut, maxOut); //P=1,I=1,D=1,Output between 0 and 100 
+            controllerAcceleration = new PidController(P, I, D, minOut, maxOut); //P=1,I=1,D=1,Output between 0 and 100 
+            controllerBrake = new PidController(P, I, D, minOut, maxOut); //P=1,I=1,D=1,Output between 0 and 100 
             
           }
 
+
         public static void ToGameAccelerationBrake()
         {
-            if (rootClass.Speed != null && rootClass.GameSpeed != null)
+            rootClass.SpeedDiff = rootClass.TargetSpeed - rootClass.GameSpeed;
+
+
+            if (rootClass.TargetSpeed > 1)
             {
+                if (rootClass.TargetSpeed > rootClass.GameSpeed)
+                {
+                    rootClass.ToGameAcceleration= limit((rootClass.TargetSpeed - rootClass.GameSpeed)*20);
+                    rootClass.ToGameBrake = 0;
+                }
 
-                controllerAcceleration.TargetValue = rootClass.Speed;//Set target . 
-                controllerAcceleration.CurrentValue = rootClass.GameSpeed;//Sensor read. 
-                rootClass.ToGameAcceleration = controllerAcceleration.ControlOutput;//Use output to control actuator.
-
-                controllerBrake.TargetValue = rootClass.GameSpeed;//Set target . 
-                controllerBrake.CurrentValue = rootClass.Speed;//Sensor read. 
-                rootClass.ToGameBrake = controllerBrake.ControlOutput;//Use output to control actuator.
+                if (rootClass.GameSpeed > rootClass.TargetSpeed)
+                {
+                    rootClass.ToGameBrake = limit((rootClass.GameSpeed - rootClass.TargetSpeed) * 8);
+                    rootClass.ToGameAcceleration = 0;
+                }           
+                    
             }
             else
-                rootClass.ToGameBrake = maxOut;
+            {
+                rootClass.ToGameAcceleration = 0;
+                rootClass.ToGameBrake = 0;
+            }
+
 
         }
 
+        public static double limit(double source)
+        {
+            var target = source < minOut ? minOut : source;
+             target = source > maxOut ? maxOut : source;
+
+            return target;
+        }
+
+        /*
+        public static void ToGameAccelerationBrake()
+        {
+
+            if (rootClass.TargetSpeed > 1)
+            {
+                controllerAcceleration.TargetValue = rootClass.TargetSpeed;   //Sensor read. 
+                controllerAcceleration.CurrentValue = rootClass.GameSpeed;
+                rootClass.ToGameAcceleration = controllerAcceleration.ControlOutput;//Use output to control actuator.
+                if (rootClass.GameSpeed > rootClass.TargetSpeed)
+                {
+                    controllerBrake.TargetValue = rootClass.GameSpeed;//Set target . 
+                    controllerBrake.CurrentValue = rootClass.TargetSpeed;//Sensor read. 
+                    rootClass.ToGameBrake = controllerBrake.ControlOutput;//Use output to control actuator.
+                }
+                else
+                    rootClass.ToGameBrake = 0;
+            } else
+            {
+                rootClass.ToGameAcceleration = 0;
+                rootClass.ToGameBrake = 0;
+            }
+
+        }
+        */
         public sealed class PidController
         {
             private double processVariable = 0;

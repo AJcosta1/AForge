@@ -13,8 +13,18 @@ namespace SDKSmartTrainnerAdaptor.Maths
     {
         public static void ToGameDirection()
         {
-            rootClass.ToGameDirection = rootClass.PosX;
+            double max = 100;
 
+
+
+            double target = 0;
+            target = -rootClass.PosX;
+
+            target = (target / 300) * max;
+            target=target < -max ? -max : target;
+            target = target > max ? max : target;
+            target = target > -10 && target < 10 ? 0 : target;
+            rootClass.ToGameDirection = target;
         }
        
 

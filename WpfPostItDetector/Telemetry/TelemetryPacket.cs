@@ -153,6 +153,10 @@ namespace SDKSmartTrainnerAdaptor.Telemetry
 
         public float FIAFlags;
 
+        public float GroundType;
+
+        public float IsInVehicle;
+
         public float SpeedInKmPerHour
         {
             get

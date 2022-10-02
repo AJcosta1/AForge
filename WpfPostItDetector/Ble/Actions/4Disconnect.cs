@@ -15,9 +15,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
                 _device.Dispose();
 
-
-                Thread.Sleep(1000);
-
+ 
 
 
             }

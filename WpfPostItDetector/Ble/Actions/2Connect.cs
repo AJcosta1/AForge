@@ -1,6 +1,7 @@
 ﻿
 using SDKSmartTrainnerAdaptor; 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
 
@@ -26,7 +27,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
                     BluetoothLEDevice bluetoothLeDevice = await BluetoothLEDevice.FromIdAsync(_device.DeviceInformation.Id);
 
-
+                  
                     await ScanServicesCharacteristic(_device, bluetoothLeDevice);
 
                 }

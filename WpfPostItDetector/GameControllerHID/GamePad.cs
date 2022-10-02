@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,37 +14,35 @@ using SDKSmartTrainnerAdaptor.Ble.Configuration;
 
 namespace SDKSmartTrainnerAdaptor.GamePadEmulator
 {
+   public static class GamePadEmulator { 
 
         public static MainWindow rootClass;
 
-        public static void StartServices(MainWindow _rootClass)
-        {
-            rootClass = _rootClass;
 
         public static ViGEmClient client;
         public static IDualShock4Controller controller;
         public static IXbox360Controller controllerXBox;
+         
 
-        public static MainWindow mainWindow;
 
         public static void Start(MainWindow _mainWindow)
         {
 
+            rootClass = _mainWindow;
 
             DispatcherTimer timer = new DispatcherTimer();
             timer.Tick += TimerTick1;
-            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Interval = TimeSpan.FromMilliseconds(10);
 
             Task.Run(() =>
             {
-                mainWindow = _mainWindow;
 
                 ViGEmClient client = new ViGEmClient();
 
                 controller = client.CreateDualShock4Controller();
 
 
-                controller.Connect();
+                //controller.Connect();
 
 
                 controllerXBox = client.CreateXbox360Controller();
@@ -62,63 +60,61 @@ namespace SDKSmartTrainnerAdaptor.GamePadEmulator
         private static void TimerTick1(object sender, object e)
         {
             SetButtons();
+            if (rootClass.IsInVehicle)
+                SetButtons();
+            else
+                ResetButtons();
+
         }
 
 
         public static void SetButtons()
         {
-            //controller.SetAxisValue(Xbox360Axis.RightThumbX, GetSafeValue());
 
-            controller.SetButtonState(DualShock4Button.Circle, mainWindow.PosX > 128);
-            controller.SetButtonState(DualShock4Button.Cross, mainWindow.PosX > 128);
-            controller.SetButtonState(DualShock4Button.Square, mainWindow.PosX > 128);
-            controller.SetButtonState(DualShock4Button.Triangle, mainWindow.PosX > 128);
-
-            controller.SetAxisValue(DualShock4Axis.RightThumbX, GetSafeValueByte());//zz
-            controller.SetAxisValue(DualShock4Axis.RightThumbY, GetSafeValueByte());
-
-            controllerXBox.SetAxisValue(Xbox360Axis.LeftThumbX, GetSafeValue());
-            controllerXBox.SetAxisValue(Xbox360Axis.LeftThumbY, GetSafeValue());
-            //controller.SetDPadDirection(DualShock4DPadDirection.East);
+            //Direction
+            controllerXBox.SetAxisValue(Xbox360Axis.LeftThumbX, GetSafeValue(rootClass.ToGameDirection));
+ 
+            //Brake
+            controllerXBox.SetSliderValue(Xbox360Slider.LeftTrigger, GetSafeValueByte(rootClass.ToGameBrake));
+    
+            //Accelerate
+            controllerXBox.SetSliderValue(Xbox360Slider.RightTrigger, GetSafeValueByte(rootClass.ToGameAcceleration));
 
 
-            //controller.SetSliderValue(Xbox360Axis.RightThumbY, 0); 
         }
-        public static short GetSafeValue()
+
+        public static void ResetButtons()
         {
-            
-            var cst= 32767;
-            var pos255 = (mainWindow.PosX*cst/255);
-            pos255 = pos255 < -cst ? -cst : pos255;
-            pos255 = pos255 > cst ? cst : pos255;
+
+            //Direction
+            controllerXBox.SetAxisValue(Xbox360Axis.LeftThumbX, 0);
+
+            //Accelerate
+            controllerXBox.SetSliderValue(Xbox360Slider.RightTrigger,0);
+
+            //Brake
+            controllerXBox.SetSliderValue(Xbox360Slider.LeftTrigger, 0);
+
+        }
+
+        public static short GetSafeValue(double value)
+        {            
+            var cst1= 32767;
+            var cst2 = rootClass._PosXAbsMin; 
+            var cst = (value / cst2 )* cst1;
             var shortV = ((short)cst) ;
             return shortV;
-           
-            var cst = 32767;
-
-            var pos255 = (mainWindow.PosX * cst / 255);
-            pos255 = pos255 < -cst ? -cst : pos255;
-            pos255 = pos255 > cst ? cst : pos255;
-
-
-            var shortV = ((short)pos255);
-
-            return shortV;
         }
-
-        public static byte GetSafeValueByte()
+      
+        public static byte GetSafeValueByte(double value)
         {
-
-            var pos255 = mainWindow.PosX + 128;
-            pos255 = pos255 < 0 ? 0 : pos255;
-            pos255 = pos255 > 255 ? 255 : pos255;
-
-
-            var shortV = Convert.ToByte(pos255);
-
+            var cst1 = 255;
+            var cst2 = 100;
+            var cst = (value / cst2) * cst1;
+            var shortV = Convert.ToByte(cst);
             return shortV;
 
 
         }
     }
-} */
+} 

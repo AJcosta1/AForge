@@ -79,11 +79,11 @@
     </Reference>
     <Reference Include="InTheHand.Net.Personal, Version=3.5.605.0, Culture=neutral, PublicKeyToken=ea38caa273134499, processorArchitecture=MSIL">
       <HintPath>..\packages\32feet.NET.3.5.0.0\lib\net\InTheHand.Net.Personal.dll</HintPath>
-	  <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Nefarius.ViGEm.Client, Version=1.19.199.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nefarius.ViGEm.Client.1.19.199\lib\netstandard2.0\Nefarius.ViGEm.Client.dll</HintPath>
-	  <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -100,15 +100,15 @@
     </Reference>
     <Reference Include="Windows">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\UnionMetadata\Facade\Windows.WinMD</HintPath>
-	  <Private>True</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Windows.Foundation.FoundationContract">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.FoundationContract\4.0.0.0\Windows.Foundation.FoundationContract.winmd</HintPath>
-	  <Private>True</Private>
+      <HintPath>References\Windows.Foundation.FoundationContract.winmd</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Windows.Foundation.UniversalApiContract">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Windows Kits\10\References\10.0.19041.0\Windows.Foundation.UniversalApiContract\10.0.0.0\Windows.Foundation.UniversalApiContract.winmd</HintPath>
-	  <Private>True</Private>
+      <HintPath>References\Windows.Foundation.UniversalApiContract.winmd</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -125,9 +125,9 @@
     <Compile Include="Ble\DisplayHelpers.cs" />
     <Compile Include="Maths\ToGameDirection.cs" />
     <Compile Include="Maths\Speed.cs" />
+    <Compile Include="Telemetry\ReadDataHelpers.cs" />
     <Compile Include="Telemetry\SendData.cs" />
     <Compile Include="Telemetry\Utils.cs" />
-    <Compile Include="Telemetry\Reader.cs" />
     <Compile Include="Telemetry\Writer.cs" />
     <Compile Include="Telemetry\TelemetryPacket.cs" />
     <Compile Include="Telemetry\Start.cs" />

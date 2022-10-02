@@ -37,19 +37,21 @@ namespace SDKSmartTrainnerAdaptor.Telemetry
                 Settings.portToGame = Int32.Parse(param);
             }
             catch { }
-
+  
             this.DataWriter = new TelemetryWriter(Settings.portToGame);
 
             DispatcherTimer timer1 = new DispatcherTimer();
             timer1.Tick += TimerTick1;
-            timer1.Interval = TimeSpan.FromMilliseconds(100);
+            timer1.Interval = TimeSpan.FromMilliseconds(50);
             timer1.Start();
 
         }
         private void TimerTick1(object sender, object e)
         {
 
-            //Data.X = player.Position.X; 
+            Data.Speed = (float)(rootClass.TargetSpeed);
+            Data.Speed = 4;
+            Data.Steer = (float)(rootClass.ToGameDirection);
 
 
             // Share data

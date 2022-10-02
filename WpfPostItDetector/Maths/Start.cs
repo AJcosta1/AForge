@@ -22,11 +22,11 @@ namespace SDKSmartTrainnerAdaptor.Maths
 
             DispatcherTimer timer1 = new DispatcherTimer();
             timer1.Tick += TimerTick1;
-            timer1.Interval = TimeSpan.FromMilliseconds(50);
+            timer1.Interval = TimeSpan.FromMilliseconds(20);
             timer1.Start();
 
         }
-        private static async void TimerTick1(object sender, object e)
+        private static void TimerTick1(object sender, object e)
         {
             Speed();
             ToGameAccelerationBrake();

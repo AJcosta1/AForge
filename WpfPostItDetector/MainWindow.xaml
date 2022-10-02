@@ -15,8 +15,7 @@
         <Grid.RenderTransform>
             <TransformGroup>
                 <ScaleTransform/>
-                <SkewTransform/>
-                <RotateTransform Angle="-0.588"/>
+                <SkewTransform/> 
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
@@ -138,7 +137,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="V:"
-            TextWrapping="Wrap"><Run Language="pt-pt" Text="{Binding Speed}" /></TextBlock>
+            TextWrapping="Wrap"><Run Language="pt-pt" Text="{Binding Speed_ms}" /></TextBlock>
         <TextBlock
             Width="96"
             Height="19"
@@ -171,7 +170,7 @@
             TextWrapping="Wrap" Grid.Column="2" Grid.ColumnSpan="2"><Run Language="pt-pt" Text="%"/><Run Text=":"/><Run Language="pt-pt"  Text="{Binding GameSlope}" /></TextBlock>
         <Label Width="180"
             Height="28"
-            Margin="451,0,0,459"
+            Margin="456,0,0,486"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Content="From Game" Grid.Column="2" Grid.ColumnSpan="2" />
@@ -189,5 +188,34 @@
                     Text="{Binding LogText}" 
        Background="#FFBBBBBB" Width="309" />
         </ScrollViewer>
+        <Slider x:Name="debug"
+            Grid.Column="2"
+            Width="105"
+            Height="38"
+            Margin="175,34,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Visibility="{Binding DebugMode}"
+            Maximum="100"
+            Minimum="0"
+            Value="{Binding DebugSpeed}" />
+        <TextBlock
+            Width="96"
+            Height="19"
+            Margin="291,33,0,0"
+            
+            Visibility="{Binding DebugMode}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            TextWrapping="Wrap" Grid.Column="2"><Run Language="pt-pt" Text="Target:"/><Run Language="pt-pt"  Text="{Binding TargetSpeed}" /></TextBlock>
+        <TextBlock
+            Width="96"
+            Height="19"
+            Margin="290,55,0,0"
+            
+            Visibility="{Binding DebugMode}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            TextWrapping="Wrap" Grid.Column="2"><Run Language="pt-pt" Text="Diff:"/><Run Language="pt-pt"  Text="{Binding SpeedDiff}" /></TextBlock>
     </Grid>
 </Window>

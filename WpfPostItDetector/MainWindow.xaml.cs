@@ -55,11 +55,14 @@ namespace SDKSmartTrainnerAdaptor
             this.DataContext = this;
             GetVideoDevices();
             Threshold = 127;
-            Radius = 20;
+            Radius = 40;
             Original = true;
+            ColorFiltered = true;
             this.Closing += MainWindow_Closing;
             SetDefaults();
             StartCamera();
+            DebugSpeed = 0;
+            DebugMode = true;
         }
 
         #endregion
@@ -139,7 +142,7 @@ namespace SDKSmartTrainnerAdaptor
 
         private void ScanBle(object sender, RoutedEventArgs e)
         {
-            SDKSmartTrainnerAdaptor.Ble.Start.ble.ScanGatt();
+           SDKSmartTrainnerAdaptor.Ble.Start.ble.ScanGatt();
         }
         #endregion
 

@@ -100,6 +100,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
             });
         }
 
+     
         private BluetoothLEDeviceDisplay FindBluetoothLEDeviceDisplay(string id)
         {
             foreach (BluetoothLEDeviceDisplay bleDeviceDisplay in Variables.DevicesDetected)

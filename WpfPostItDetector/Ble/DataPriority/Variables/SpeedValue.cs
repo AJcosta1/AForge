@@ -12,7 +12,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 
             //static
             string characteristic = _Characteristics.CSCMeasurement;
-            string output = nameof(x.Speed_ms);
+            string output = nameof(x.SpeedRpm);
             variableToRead _variableToRead = variableToRead.ReadTratedValue_1;
 
 
@@ -27,11 +27,11 @@ namespace SDKSmartTrainnerAdaptor.Ble.DataPriority
 
 
             //variable for debug
-            var temp3 = 300;
+            var temp3 = (float)Start.rootClass.DebugSpeed;
             temp2= Math.Max(temp2, temp3);
 
 
-            Start.rootClass.Speed_ms = Math.Max(temp1, temp2);
+            Start.rootClass.SpeedRpm = Math.Max(temp1, temp2);
  
 
         }

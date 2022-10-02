@@ -25,7 +25,13 @@ namespace SDKSmartTrainnerAdaptor.Ble.Configuration
         /// <summary>
         /// Cycle time to update data
         /// </summary>
-        public const int updateTime = 500;
+        public const int updateTime = 2000;
+
+
+        /// <summary>
+        /// Cycle time to update data
+        /// </summary>
+        public const int updateTimeDataReceived = 50;
 
         /// <summary>
         /// Cycle time to update data low priority

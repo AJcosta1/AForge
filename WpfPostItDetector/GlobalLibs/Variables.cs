@@ -12,6 +12,21 @@ namespace SDKSmartTrainnerAdaptor
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         #region Aplication
+
+
+        public bool DebugMode
+        {
+            get { return GetPropertyValue<bool>("DebugMode"); }
+            set { SetPropertyValue("DebugMode", value); }
+        }
+
+        public double DebugSpeed //RPM
+        {
+            get { return GetPropertyValue<double>("DebugSpeed"); }
+            set { SetPropertyValue("DebugSpeed", value); }
+        }
+
+
         public double GameSlope
         {
             get { return GetPropertyValue<double>("GameSlope"); }
@@ -60,7 +75,27 @@ namespace SDKSmartTrainnerAdaptor
             set { SetPropertyValue("Speed_ms", value); }
         }
 
-        public double Speed //from trainer
+
+        public double SpeedDiff
+        {
+            get { return GetPropertyValue<double>("SpeedDiff"); }
+            set { SetPropertyValue("SpeedDiff", value); }
+        }
+
+        public double TargetSpeed
+        {
+            get { return GetPropertyValue<double>("TargetSpeed"); }
+            set { SetPropertyValue("TargetSpeed", value); }
+        }
+
+        public double SpeedRpm
+        {
+            get { return GetPropertyValue<double>("SpeedRpm"); }
+            set { SetPropertyValue("SpeedRpm", value); }
+        }
+
+
+        public double Speed  //kmh
         {
             get { return GetPropertyValue<double>("Speed_ms") * 3.6; }
             set {  }
@@ -95,7 +130,12 @@ namespace SDKSmartTrainnerAdaptor
             set { SetPropertyValue("ToGameDirection", value); }
         }
 
-
+        public bool IsInVehicle
+        {
+            get { return GetPropertyValue<bool>("IsInVehicle"); }
+            set { SetPropertyValue("IsInVehicle", value); }
+        }
+        
         public String UISpeed
         {
             get { return ("V= " + Speed); }
@@ -347,11 +387,18 @@ namespace SDKSmartTrainnerAdaptor
             get { return GetPropertyValue<double>("_PosXAVG"); }
             set { }
         }
+        public double _PosXAbsMin
+        {
+            get { return 100; }
+            set { }
+        }
+
+  
 
         public double _PosX0;
 
-        private double _PosXMin = 100000;
-        private double _PosXMax = -100000;
+        public double _PosXMin = 100000;
+        public double _PosXMax = -100000;
         #endregion
 
         #region Notifiers

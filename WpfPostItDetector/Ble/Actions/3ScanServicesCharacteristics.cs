@@ -3,6 +3,7 @@ using SDKSmartTrainnerAdaptor.Ble.UuidDictionary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
@@ -18,7 +19,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
 
 
         public async Task ScanServicesCharacteristic(BluetoothLEDeviceDisplay deviceInf, BluetoothLEDevice device)
-        {
+        { 
             GattDeviceServicesResult resultServices = await device.GetGattServicesAsync();
 
             if (resultServices.Status == GattCommunicationStatus.Success)
@@ -43,8 +44,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                         Pair(_device.DeviceInformation);
 
                     foreach (var service in resultServices.Services)
-                    {
-
+                    { 
                         GattCharacteristicsResult resultCharacteristics = await service.GetCharacteristicsAsync();
 
                         if (resultCharacteristics.Status == GattCommunicationStatus.Success)
@@ -62,7 +62,7 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
                     SDKSmartTrainnerAdaptor.Ble.Start.rootClass.loggerAdd("Connected: " + device.Name);
                 }
                 else
-                {
+                {   
                     compatibleList[deviceInf] = false;
                     disconnectDevice(device);
                 }

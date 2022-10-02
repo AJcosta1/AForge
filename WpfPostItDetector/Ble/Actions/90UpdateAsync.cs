@@ -14,13 +14,13 @@ namespace SDKSmartTrainnerAdaptor.Ble.Actions
             foreach (var device in Variables.SessonData.DevicesConnected.ToList())
             {
                //if (device.DeviceInformation.IsConnected || device.DeviceInformation.IsPaired)
-                    foreach (var characteristic in device.Characteristics)
+                    foreach (var characteristic in device.Characteristics.ToList())
                     {
                         var result = Variables.ListaConfiguracaoDispositivos.Where(x => x.characteristic.ToUpper() == characteristic.Uuid.ToString().ToUpper());
 
                         if (result.Count() > 0)
                         {
-                            Thread.Sleep(10);
+                         
                             GattCharacteristicProperties properties = characteristic.CharacteristicProperties;
 
                             if (properties.HasFlag(GattCharacteristicProperties.Notify))

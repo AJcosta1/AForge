@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SDKSmartTrainnerAdaptor.GamePadEmulator;
 
 namespace SDKSmartTrainnerAdaptor
 {
@@ -26,7 +27,7 @@ namespace SDKSmartTrainnerAdaptor
 
             Telemetry.Telemetry.StartServices(this);
 
-            //GameControllerHID.GameControllerHID.StartServices(this);
+            //GamePadEmulator.GamePadEmulator.Start(this);
 
 
 

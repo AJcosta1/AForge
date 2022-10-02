@@ -36,8 +36,10 @@ namespace SDKSmartTrainnerAdaptor.Ble
 
             DispatcherTimer timer3 = new DispatcherTimer();
             timer3.Tick += TimerTick3;
-            timer3.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.updateTime);
+            timer3.Interval = TimeSpan.FromMilliseconds(BLEConfiguration.updateTimeDataReceived);
             timer3.Start();
+
+
 
 
         }
@@ -48,12 +50,12 @@ namespace SDKSmartTrainnerAdaptor.Ble
 
         private static async void TimerTick2(object sender, object e)
         {
-           // ble.connectDevices();
+            await ble.updateAsync();
 
         }
         private static async void TimerTick3(object sender, object e)
         {
-            ble.updateAsync();
+            
             CharacteristicsRead.InterpretateReadDataFromBLE();
             DataPriority.DataPriority.CheckData();
 
